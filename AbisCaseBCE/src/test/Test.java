@@ -7,6 +7,8 @@ public class Test {
 		System.out.println("Hello World!");
 		System.out.println("Sophie received");
 		System.out.println("Sophie test christian ");
+		System.out.println("Sophie test christian2 ");
+		System.out.println("Sophie test christian3 ");
 		
 	}
 

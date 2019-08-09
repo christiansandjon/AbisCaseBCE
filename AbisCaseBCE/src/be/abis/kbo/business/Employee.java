@@ -14,9 +14,6 @@ public class Employee {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	public String getPassword() {
-		return password;
-	}
 	public void setPassword(String password) {
 		this.password = hashMD5(password);
 	}
@@ -33,5 +30,9 @@ public class Employee {
         String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
 
         return myHash.toLowerCase();
+	}
+	
+	public boolean checkPassword(String passwordToTest) {
+		return this.password.equals(hashMD5(passwordToTest));
 	}
 }

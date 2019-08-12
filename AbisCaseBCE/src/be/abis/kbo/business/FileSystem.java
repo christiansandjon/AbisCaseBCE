@@ -33,8 +33,7 @@ public class FileSystem {
 		 */
 		// PrintWriter out = new PrintWriter(path);
 		Path files = Paths.get(path);
-		if (!checkUsers(emp, path))
-		{
+		if (!checkUsers(emp, path)) {
 			userList.add(emp.toString());
 		}
 		Files.write(files, userList);
@@ -70,10 +69,10 @@ public class FileSystem {
 		return userList;
 	}
 
-	public void login()
-	{
-		
-		System.out.println("You logged in!");
-		System.out.println("You did not logged in :'( ");
+	public void login(String pass, Employee emp) {
+		if (emp.checkPassword(pass))
+			System.out.println("You logged in " + emp.getLogin() + " !");
+		else
+			System.out.println("You did not logged in :'( ");
 	}
 }

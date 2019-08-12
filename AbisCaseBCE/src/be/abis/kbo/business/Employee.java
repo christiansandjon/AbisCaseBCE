@@ -8,6 +8,17 @@ public class Employee {
 	private String login;
 	private String password;
 	private long id;
+	private static long lastGeneratedId = -1;
+	
+	public Employee(long id, String login, String password) {
+		this.id = id;
+		this.login = login;
+		this.password = password;
+	}
+	
+	public Employee(String login, String password) {
+		this(generateNewId(),login,hash(password+lastGeneratedId));
+	}
 	
 	public String getLogin() {
 		return login;
@@ -38,6 +49,13 @@ public class Employee {
         }
 
         return myHash.toLowerCase();
+	}
+	
+	private static long generateNewId () {
+		if (lastGeneratedId == -1) {
+			// get highest generated id from file
+		}
+		return lastGeneratedId++;
 	}
 	
 	public boolean checkPassword(String passwordToTest) {

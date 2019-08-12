@@ -7,6 +7,7 @@ import javax.xml.bind.DatatypeConverter;
 public class Employee {
 	private String login;
 	private String password;
+	private long id;
 	
 	public String getLogin() {
 		return login;
@@ -18,7 +19,12 @@ public class Employee {
 		this.password = hashMD5(password);
 	}
 	
+	public long getId() {
+		return this.id;
+	}
+	
 	private String hashMD5(String text) {
+		text += this.id;
 		MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");

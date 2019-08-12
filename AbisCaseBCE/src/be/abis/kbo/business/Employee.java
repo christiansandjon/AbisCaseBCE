@@ -1,8 +1,10 @@
 package be.abis.kbo.business;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.security.*;
 
-import javax.xml.bind.DatatypeConverter;
+import org.json.simple.*;
 
 public class Employee {
 	private String login;
@@ -63,10 +65,15 @@ public class Employee {
 	public boolean checkPassword(String passwordToTest) {
 		return this.password.equals(hash(passwordToTest+this.id));
 	}
-
-	@Override
-	public String toString() {
-		return id + " " + login;
+	
+	public String generateJSon() throws IOException {
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("login", this.login);
+		jsonObj.put("id", this.id);
+		jsonObj.put("password", this.password);
+		jsonObj.put("role", EmployeeRole.EMPLOYEE.getId());
+		StringWriter out = new StringWriter();
+		jsonObj.writeJSONString(out);
+		return out.toString();
 	}
-
 }

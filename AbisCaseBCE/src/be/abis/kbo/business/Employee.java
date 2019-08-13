@@ -11,6 +11,11 @@ public class Employee {
 	private String password;
 	private long id;
 	private static long lastGeneratedId = -1;
+	private String firstName;
+	private String lastName;
+	private double monthlyRate;
+	private String bankAccount;
+	private String address;
 	
 	public Employee(long id, String login, String password) {
 		this.id = id;
@@ -38,6 +43,46 @@ public class Employee {
 		return this.id;
 	}
 	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public double getMonthlyRate() {
+		return monthlyRate;
+	}
+
+	public void setMonthlyRate(double monthlyRate) {
+		this.monthlyRate = monthlyRate;
+	}
+
+	public String getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	private static String hash(String text) {
 		MessageDigest md = null;
         try {

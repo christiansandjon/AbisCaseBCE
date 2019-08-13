@@ -111,15 +111,34 @@ public class Employee {
 		return this.password.equals(hash(passwordToTest+this.id));
 	}
 	
-	public String generateJSon() throws IOException {
-		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("login", this.login);
-		jsonObj.put("id", this.id);
-		jsonObj.put("password", this.password);
-		jsonObj.put("role", EmployeeRole.EMPLOYEE.getId());
+	protected String generateJSon(int roleId) throws IOException {
+		JSONObject json = new JSONObject();
+		json.put("login", this.login);
+		json.put("id", this.id);
+		json.put("password", this.password);
+		json.put("role", roleId);
+		if (this.getFirstName() != null) {
+			json.put("firstName", this.getFirstName());
+		}
+		if (this.getLastName() != null) {
+			json.put("lastName", this.getLastName());
+		}
+		if (this.getMonthlyRate() != 0) {
+			json.put("monthlyRate", this.getMonthlyRate());
+		}
+		if (this.getBankAccount() != null) {
+			json.put("bankAccount", this.getBankAccount());
+		}
+		if (this.getAddress() != null) {
+			json.put("address", this.getAddress());
+		}
 		StringWriter out = new StringWriter();
-		jsonObj.writeJSONString(out);
+		json.writeJSONString(out);
 		return out.toString();
+	}
+	
+	public String generateJSon() throws IOException {
+		return generateJSon(EmployeeRole.EMPLOYEE.getId());
 	}
 	
 	public WorkingDay registerStartWorkingDay() {

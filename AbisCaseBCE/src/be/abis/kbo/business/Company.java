@@ -1,4 +1,4 @@
-package com.company;
+package be.abis.kbo;
 
 public class Company {
 
@@ -15,5 +15,5 @@ public class Company {
     public void setName(String name) {
         this.name = name;
     }
-    
+
 }

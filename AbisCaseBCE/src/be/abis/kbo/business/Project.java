@@ -1,4 +1,4 @@
-package com.company;
+package be.abis.kbo;
 
 public class Project {
 

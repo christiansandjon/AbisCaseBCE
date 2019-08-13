@@ -16,17 +16,17 @@ public class Employee {
 	private double monthlyRate;
 	private String bankAccount;
 	private String address;
-	
+
 	public Employee(long id, String login, String password) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
 	}
-	
+
 	public Employee(String login, String password) {
-		this(generateNewId(),login,hash(password+lastGeneratedId));
+		this(generateNewId(), login, hash(password + lastGeneratedId));
 	}
-	
+
 	public String getLogin() {
 		return login;
 	}
@@ -36,13 +36,13 @@ public class Employee {
 	}
 
 	public void setPassword(String password) {
-		this.password = hash(password+this.id);
+		this.password = hash(password + this.id);
 	}
 
 	public long getId() {
 		return this.id;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -85,32 +85,32 @@ public class Employee {
 
 	private static String hash(String text) {
 		MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("SHA-512");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        md.update(text.getBytes());
-        byte[] digest = md.digest();
-        String myHash = "";
-        for (byte b : digest) {
-        	myHash += String.format("%02X", b);
-        }
+		try {
+			md = MessageDigest.getInstance("SHA-512");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		md.update(text.getBytes());
+		byte[] digest = md.digest();
+		String myHash = "";
+		for (byte b : digest) {
+			myHash += String.format("%02X", b);
+		}
 
 		return myHash.toLowerCase();
 	}
-	
-	private static long generateNewId () {
+
+	private static long generateNewId() {
 		if (lastGeneratedId == -1) {
 			// get highest generated id from file
 		}
 		return ++lastGeneratedId;
 	}
-	
+
 	public boolean checkPassword(String passwordToTest) {
-		return this.password.equals(hash(passwordToTest+this.id));
+		return this.password.equals(hash(passwordToTest + this.id));
 	}
-	
+
 	protected String generateJSon(int roleId) throws IOException {
 		JSONObject json = new JSONObject();
 		json.put("login", this.login);
@@ -136,15 +136,15 @@ public class Employee {
 		json.writeJSONString(out);
 		return out.toString();
 	}
-	
+
 	public String generateJSon() throws IOException {
 		return generateJSon(EmployeeRole.EMPLOYEE.getId());
 	}
-	
+
 	public WorkingDay registerStartWorkingDay() {
 		return new WorkingDay(this);
 	}
-	
+
 	public void registerCloseWorkingDay(WorkingDay day) {
 		if (day.getConcernedEmployee().equals(this)) {
 			day.closeWorkingDay();
@@ -155,11 +155,12 @@ public class Employee {
 
 	@Override
 	public int hashCode() {
-		return  100 + (int)this.getId() + login.hashCode();
+		return 100 + (int) this.getId() + login.hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof Employee && this.getId() == ((Employee) obj).getId() && this.getLogin().equals(((Employee) obj).getLogin());
+		return obj instanceof Employee && this.getId() == ((Employee) obj).getId()
+				&& this.getLogin().equals(((Employee) obj).getLogin());
 	}
 }

@@ -1,7 +1,9 @@
 package be.abis.kbo.business;
 
 public enum EmployeeRole {
-	EMPLOYEE("Employee",0);
+	EMPLOYEE("Employee",0),
+	ACCOUNTANT("Accountant",1),
+	MANAGER("Manager",2);
 	
 	private String role;
 	private int id;

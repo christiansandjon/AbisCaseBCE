@@ -59,7 +59,7 @@ public class Employee {
 		if (lastGeneratedId == -1) {
 			// get highest generated id from file
 		}
-		return lastGeneratedId++;
+		return ++lastGeneratedId;
 	}
 	
 	public boolean checkPassword(String passwordToTest) {

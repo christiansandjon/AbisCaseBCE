@@ -1,6 +1,6 @@
 package be.abis.kbo.business;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Project {
 

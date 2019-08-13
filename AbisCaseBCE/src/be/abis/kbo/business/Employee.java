@@ -76,4 +76,26 @@ public class Employee {
 		jsonObj.writeJSONString(out);
 		return out.toString();
 	}
+	
+	public WorkingDay registerStartWorkingDay() {
+		return new WorkingDay(this);
+	}
+	
+	public void registerCloseWorkingDay(WorkingDay day) {
+		if (day.getConcernedEmployee().equals(this)) {
+			day.closeWorkingDay();
+		} else {
+			System.out.println("Impossible to close the working day from another employee");
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return  100 + (int)this.getId() + login.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Employee && this.getId() == ((Employee) obj).getId() && this.getLogin().equals(((Employee) obj).getLogin());
+	}
 }

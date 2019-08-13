@@ -1,4 +1,4 @@
-package be.abis.kbo;
+package be.abis.kbo.business;
 
 public class Project {
 

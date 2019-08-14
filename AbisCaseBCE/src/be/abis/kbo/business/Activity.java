@@ -1,16 +1,21 @@
 package be.abis.kbo.business;
 
-import java.time.LocalDateTime;
+import java.time.*;
 
 public class Activity {
 	private LocalDateTime startTime;
-	private LocalDateTime endTime;
+	private Duration duration;
 	private Employee concernedEmployee;
 	private Project concernedProject;
 
 	public Activity(Employee concernedEmployee, Project concernedProject, LocalDateTime startTime) {
+		this(concernedEmployee, concernedProject, startTime, Duration.ofMinutes(15));
+	}
+
+	public Activity(Employee concernedEmployee, Project concernedProject, LocalDateTime startTime,
+			Duration duration) {
 		this.startTime = startTime;
-		this.endTime = startTime.plusMinutes(15);
+		this.duration = duration;
 		this.concernedEmployee = concernedEmployee;
 		this.concernedProject = concernedProject;
 	}
@@ -22,22 +27,16 @@ public class Activity {
 	public void setStartTime(LocalDateTime startTime) {
 		if (this.startTime.getYear() == startTime.getYear()
 				&& this.startTime.getDayOfYear() == startTime.getDayOfYear()) {
-			if (this.endTime.isAfter(startTime)) {
-				this.startTime = startTime;
-			}
+			this.startTime = startTime;
 		}
 	}
 
-	public LocalDateTime getEndTime() {
-		return endTime;
+	public Duration getDuration() {
+		return duration;
 	}
 
-	public void setEndTime(LocalDateTime endTime) {
-		if (this.endTime.getYear() == endTime.getYear() && this.endTime.getDayOfYear() == endTime.getDayOfYear()) {
-			if (this.startTime.isBefore(endTime)) {
-				this.endTime = endTime;
-			}
-		}
+	public void setDuration(Duration duration) {
+		this.duration = duration;
 	}
 
 	public Project getConcernedProject() {

@@ -13,16 +13,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class FileSystem {
 
 	private String path;
-	private ArrayList<String> userList = new ArrayList();
+	// private ArrayList<String> userList = new ArrayList();
+	private JSONArray userList = new JSONArray();
 
-	public void addEmployee(Employee emp, String path) throws IOException, ClassNotFoundException {
+	public void saveEmployee(Employee emp, String path) throws IOException, ClassNotFoundException {
 		// C:\Users\Duser\Desktop\AbisCaseBCE
-
 		// Path files = Paths.get(path);
 		/*
 		 * PrintWriter out = new PrintWriter(path); out.println(emp.getId());
@@ -34,45 +40,85 @@ public class FileSystem {
 		// PrintWriter out = new PrintWriter(path);
 		Path files = Paths.get(path);
 		if (!checkUsers(emp, path)) {
-			userList.add(emp.toString());
+			userList.add(emp.generateJSon());
 		}
 		Files.write(files, userList);
-
 	}
 
 	public boolean checkUsers(Employee emp, String path) throws ClassNotFoundException, IOException {
-		ArrayList<String> list = getUsers(path);
 
-		for (String string : list) {
-			if (string.equals(emp.getLogin()))
+		JSONArray list = userList;
+		for (Object object : list) {
+			System.out.println(object + "<-- Test");
+			if (object.equals(emp.getLogin())) {
 				return true;
+			}
 		}
 
 		return false;
+		/*
+		 * ArrayList<String> list = getUsers(); for (String string : list) {
+		 * System.out.println(string + "<-- Test"); if
+		 * (string.equals(emp.getLogin())) { return true; } }
+		 * 
+		 * return false;
+		 */
 	}
 
-	public ArrayList getUsers(String path) throws IOException, ClassNotFoundException {
-		/*
-		 * Scanner scanner = new Scanner(new File(path)); ArrayList<String> list
-		 * = new ArrayList<String>(); while (scanner.hasNext()){
-		 * list.add(scanner.next()); } scanner.close(); return list;
-		 */
+	/**
+	 * Convert JSON Object to Employee
+	 * 
+	 * @param s
+	 * @return
+	 * @throws ParseException
+	 */
+	public Employee convertJSONTO_Employee(String s) throws ParseException {
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse("[0," + s + "]");
+		System.out.println(obj);
 
-		/*
-		 * ObjectInputStream ois = new ObjectInputStream(new
-		 * FileInputStream(path)); boolean check = true; while (check) {
-		 * Employee emp = (Employee) ois.readObject(); if () check = false; }
-		 * 
-		 * return null;
-		 */
+		JSONArray array = (JSONArray) obj;
 
-		return userList;
+		JSONObject obj2 = (JSONObject)array.get(1);
+		String password = obj2.get("password").toString();
+		String login = obj2.get("login").toString();
+		Employee emp = new Employee(login,password);
+		System.out.println(emp.getLogin() + " tested");
+		return emp;
+
+	}
+
+	public ArrayList convertJSONArrayTo_Arraylist_Employee() throws ParseException {
+		ArrayList<Employee> arrayList = new ArrayList<>();
+		for (int i = 0; i < userList.size(); i++) {
+			arrayList.add(convertJSONTO_Employee((String) userList.get(i)));
+		}
+
+		return arrayList;
 	}
 
 	public void login(String pass, Employee emp) {
-		if (emp.checkPassword(pass))
+		if (emp.checkPassword(pass)) {
 			System.out.println("You logged in " + emp.getLogin() + " !");
-		else
+
+			try {
+				Employee emp2 = convertJSONTO_Employee(emp.generateJSon());
+				System.out.println("This is emp2 --> " + emp2.getLogin());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else {
 			System.out.println("You did not logged in :'( ");
+		}
 	}
+
+	public JSONArray getUserList() {
+		return userList;
+	}
+
 }

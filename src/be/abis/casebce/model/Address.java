@@ -3,7 +3,9 @@ package be.abis.casebce.model;
 import java.io.Serializable;
 
 import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 
+@Named
 @SessionScoped
 public class Address implements Serializable {
 

@@ -11,16 +11,26 @@
 </h:head>
 <h:body>
 	<p:panel header="#{msgs.activityInfoTitle}">
-		<p:outputLabel value="#{msgs.projectLabelText}" /> PROJECT (CLIENT)<br />
-		PROJECT DESCRIPTION<br />
+		<p:outputLabel value="#{msgs.projectLabelText}" /> #{activityController.currentActivity.project.name} (#{activityController.currentActivity.project.client.name})<br />
+		#{activityController.currentActivity.project.description}<br />
 		<br />
-		DATE<br />
-		START HOUR - STOP HOUR<br />
+		<h:outputText value="#{activityController.currentActivity.start}">
+			<f:converter converterId="dateConverter" />
+		</h:outputText>
 		<br />
-		<p:outputLabel value="#{msgs.descriptionLabelText}" /> ACTIVITY DESCRIPTION
+		<h:outputText value="#{activityController.currentActivity.start}">
+			<f:converter converterId="hourConverter" />
+		</h:outputText>
+		 - 
+		<h:outputText value="#{activityController.currentActivity.end}">
+			<f:converter converterId="hourConverter" />
+		</h:outputText>
+		<br />
+		<br />
+		<p:outputLabel value="#{msgs.descriptionLabelText}" /> #{activityController.currentActivity.description}
 	</p:panel>
 	<h:form>
-		<p:commandButton value="#{msgs.editButtonText}" />
+		<p:commandButton value="#{msgs.editButtonText}" action="activityEdit.xhtml?faces-redirect=true" />
 	</h:form>
 </h:body>
 </html>

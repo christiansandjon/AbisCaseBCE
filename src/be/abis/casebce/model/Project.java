@@ -23,7 +23,7 @@ public class Project implements Serializable {
 
 	}
 
-	// getters and setters 
+	// getters and setters
 	public Company getClient() {
 		return client;
 	}

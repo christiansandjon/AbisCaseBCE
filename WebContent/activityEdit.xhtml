@@ -17,18 +17,19 @@
 				<f:selectItems value="Project" />
 			</p:selectOneMenu>
 			<br />
-			<p:outputLabel value="#{msgs.dateLabelText}" />
-			<p:datePicker value="" />
-			<br />
 			<p:outputLabel value="#{msgs.startTimeLabelText}" />
-			<p:datePicker value="" timeOnly="true" />
+			<p:datePicker value="#{activityController.currentActivity.start}" showTime="true" pattern="dd-MM-yyyy kk:mm">
+				<f:converter converterId="dateTimeConverter" />
+			</p:datePicker>
 			<br />
 			<p:outputLabel value="#{msgs.endTimeLabelText}" />
-			<p:datePicker value="" timeOnly="true" />
+			<p:datePicker value="#{activityController.currentActivity.end}" timeOnly="true" pattern="kk:mm">
+				<f:converter converterId="hourConverter" />
+			</p:datePicker>
 			<br />
 			<p:outputLabel value="#{msgs.descriptionLabelText}" />
 			<br />
-			<p:inputTextarea rows="10" cols="30" />
+			<p:inputTextarea value="#{activityController.currentActivity.description}" rows="10" cols="30" />
 			<br />
 			<br />
 			<p:commandButton value="#{msgs.validateButtonText}" />

@@ -1,5 +1,4 @@
 package be.abis.casebce.model;
-
 import java.io.Serializable;
 
 import javax.faces.bean.SessionScoped;

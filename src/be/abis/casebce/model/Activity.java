@@ -1,6 +1,7 @@
 package be.abis.casebce.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.faces.bean.SessionScoped;
@@ -12,8 +13,8 @@ import javax.inject.Named;
 public class Activity implements Serializable {
 
 	// fields
-	private Date start;
-	private Date end;
+	private LocalDateTime start;
+	private LocalDateTime end;
 	@Inject
 	private Project project;
 	private String description;
@@ -23,19 +24,20 @@ public class Activity implements Serializable {
 	}
 
 	// getter and setters
-	public Date getStart() {
+
+	public LocalDateTime getStart() {
 		return start;
 	}
 
-	public void setStart(Date start) {
+	public void setStart(LocalDateTime start) {
 		this.start = start;
 	}
 
-	public Date getEnd() {
+	public LocalDateTime getEnd() {
 		return end;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(LocalDateTime end) {
 		this.end = end;
 	}
 

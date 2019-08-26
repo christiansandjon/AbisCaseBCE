@@ -12,27 +12,27 @@
 	<h2>This is impossible to fail</h2>
 	<h:panelGrid columns="2" cellpadding="5">
 
-		<p:outputLabel for="startdate" value="Start date: " />
+		<p:outputLabel for="startdate" value="#{msgs['labelTextStartDate']}" />
 		<p:calendar id="startdate" pattern="MM/dd/yyy HH:mm" showOn="button" />
-		<p:outputLabel for="duration" value="Duration: " />
+		<p:outputLabel for="duration" value="#{msgs['labelTextDuration']}" />
 		<p:calendar id="duration" pattern="HH:mm" timeOnly="true" />
 
-		<p:outputLabel for="description" value="Description: " />
+		<p:outputLabel for="description" value="#{msgs['labelTextDescription']} " />
 
 		<p:inputTextarea id="description" rows="6" cols="33"
 			value="AutoResize" />
-		<p:outputLabel for="project" value="Project: " />
+		<p:outputLabel for="project" value="#{msgs['labelTextProject']} " />
 		<p:selectOneMenu id="project" style="width:125px">
-			<f:selectItem itemLabel="Select One project" itemValue="" />
+			<f:selectItem itemLabel="#{msg['selectItemText']}" itemValue="" />
 			<f:selectItem itemLabel="Abis" itemValue="Abis" />
 			<f:selectItem itemLabel="Iris" itemValue="Iris" />
 			<f:selectItem itemLabel="Google" itemValue="Google" />
 		</p:selectOneMenu>
 		<f:facet name="footer">
 			<h:form>
-				<p:commandButton id="cancel" value="Cancel"
+				<p:commandButton id="cancel" value="#{msgs['cancelButtonText']}"
 					style="margin-right:20px;" ajax="false" />
-				<p:commandButton id="register" value="Register"
+				<p:commandButton id="register" value="#{msgs['registerButtonText']}"
 					style="margin-right:20px;" ajax="false" />
 			</h:form>
 		</f:facet>

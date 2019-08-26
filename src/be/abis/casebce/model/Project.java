@@ -15,6 +15,7 @@ public class Project implements Serializable {
 	private Company client;
 	@Inject
 	private Manager manager;
+	private String name;
 	private double hourRate;
 	private String description;
 
@@ -55,8 +56,13 @@ public class Project implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

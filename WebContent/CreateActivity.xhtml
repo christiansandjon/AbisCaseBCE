@@ -2,19 +2,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Insert title here</title>
+	<title>New title</title>
 </h:head>
 <h:body>
 	<h2>This is impossible to fail</h2>
 	<h:panelGrid columns="2" cellpadding="5">
-		<p:outputLabel for="button" value="Button:" />
-		<p:calendar id="button" showOn="button" />
-		<p:outputLabel for="time" value="Time:" />
-		<p:calendar id="time" value="#{calendarView.date11}" pattern="HH:mm"
-			timeOnly="true" />
+
+		<p:outputLabel for="startdate" value="#{msgs['labelTextStartDate']}" />
+		<p:calendar id="startdate" pattern="MM/dd/yyy HH:mm" showOn="button" />
+		<p:outputLabel for="duration" value="#{msgs['labelTextDuration']}" />
+		<p:calendar id="duration" pattern="HH:mm" timeOnly="true" />
+
+		<p:outputLabel for="description" value="#{msgs['labelTextDescription']} " />
+
+		<p:inputTextarea id="description" rows="6" cols="33"
+			value="AutoResize" />
+		<p:outputLabel for="project" value="#{msgs['labelTextProject']} " />
+		<p:selectOneMenu id="project" style="width:125px">
+			<f:selectItem itemLabel="#{msg['selectItemText']}" itemValue="" />
+			<f:selectItem itemLabel="Abis" itemValue="Abis" />
+			<f:selectItem itemLabel="Iris" itemValue="Iris" />
+			<f:selectItem itemLabel="Google" itemValue="Google" />
+		</p:selectOneMenu>
+		<f:facet name="footer">
+			<h:form>
+				<p:commandButton id="cancel" value="#{msgs['cancelButtonText']}"
+					style="margin-right:20px;" ajax="false" />
+				<p:commandButton id="register" value="#{msgs['registerButtonText']}"
+					style="margin-right:20px;" ajax="false" />
+			</h:form>
+		</f:facet>
+
 	</h:panelGrid>
+
 </h:body>
 </html>

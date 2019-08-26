@@ -6,16 +6,18 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>#{msgs.activityInfoTitle}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>#{msgs.activityInfoTitle}</title>
 </h:head>
 <h:body>
 	<p:panel header="#{msgs.activityInfoTitle}">
-		<p:outputLabel value="#{msgs.projectLabelText}" /> PROJECT (CLIENT)<br/>
-		PROJECT DESCRIPTION<br/><br/>
-		DATE<br/>
-		START HOUR - STOP HOUR<br/><br/>
-		<p:outputLabel value ="#{msgs.descriptionLabelText}" /> ACTIVITY DESCRIPTION
+		<p:outputLabel value="#{msgs.projectLabelText}" /> PROJECT (CLIENT)<br />
+		PROJECT DESCRIPTION<br />
+		<br />
+		DATE<br />
+		START HOUR - STOP HOUR<br />
+		<br />
+		<p:outputLabel value="#{msgs.descriptionLabelText}" /> ACTIVITY DESCRIPTION
 	</p:panel>
 	<h:form>
 		<p:commandButton value="#{msgs.editButtonText}" />

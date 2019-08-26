@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Activity</title>
+</h:head>
+<h:body>
+
+<!--  version with data 
+
+	<h1 class="title ui-widget-header ui-corner-all" style="text-align: center">ACTIVITIES</h1>
+	<p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
+
+		<table class="order-table">
+			<tr>
+				<th class="order-table-header">Order No</th>
+				<th class="order-table-header">Product Name</th>
+				<th class="order-table-header">Price</th>
+				<th class="order-table-header">Quantity</th>
+			</tr>
+			<tbody>
+				<ui:repeat var="o" value="#{order.orderList}" varStatus="status">
+					<h:panelGroup rendered="#{status.even}">
+						<tr>
+							<td class="order-table-even-row">#{o.orderNo}</td>
+							<td class="order-table-even-row">#{o.productName}</td>
+							<td class="order-table-even-row">#{o.price}</td>
+							<td class="order-table-even-row">#{o.qty}</td>
+						</tr>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{status.odd}">
+						<tr>
+							<td class="order-table-odd-row">#{o.orderNo}</td>
+							<td class="order-table-odd-row">#{o.productName}</td>
+							<td class="order-table-odd-row">#{o.price}</td>
+							<td class="order-table-odd-row">#{o.qty}</td>
+						</tr>
+					</h:panelGroup>
+				</ui:repeat>
+			</tbody>
+		</table>
+	</p:panelGrid>
+
+-->
+
+	<h1 class="title ui-widget-header ui-corner-all" style="text-align: center">ACTIVITIES</h1>
+
+	<p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
+		<p:dataTable var="car" value="">
+			<p:column headerText="Project name">
+				<h:outputText value="Create WebApp" />
+			</p:column>
+
+			<p:column headerText="Start Hour">
+				<h:outputText value="8:30 am" />
+			</p:column>
+
+			<p:column headerText="End Hour">
+				<h:outputText value="4:30 pm" />
+			</p:column>
+
+			<p:column headerText="Client">
+				<h:outputText value="Abis" />
+			</p:column>
+
+		</p:dataTable>
+	</p:panelGrid>
+</h:body>
+</html>

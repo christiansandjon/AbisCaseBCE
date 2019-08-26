@@ -12,7 +12,7 @@
 </h:head>
 <h:body>
 
-<!--  version with data 
+	<!--  version with data 
 
 	<h1 class="title ui-widget-header ui-corner-all" style="text-align: center">ACTIVITIES</h1>
 	<p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
@@ -49,23 +49,24 @@
 
 -->
 
-	<h1 class="title ui-widget-header ui-corner-all" style="text-align: center">ACTIVITIES</h1>
+	<h1 class="title ui-widget-header ui-corner-all"
+		style="text-align: center">ACTIVITIES</h1>
 
 	<p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
-		<p:dataTable var="car" value="">
-			<p:column headerText="Project name">
+		<p:dataTable var="project" value="#{msgs['projectLabelText']} :">
+			<p:column headerText="PROJECT NAME">
 				<h:outputText value="Create WebApp" />
 			</p:column>
 
-			<p:column headerText="Start Hour">
+			<p:column headerText="#{msg['startTimeLabelText']} :">
 				<h:outputText value="8:30 am" />
 			</p:column>
 
-			<p:column headerText="End Hour">
+			<p:column headerText="#{msg['endTimeLabelText']} :">
 				<h:outputText value="4:30 pm" />
 			</p:column>
 
-			<p:column headerText="Client">
+			<p:column headerText="#{msg['companyLabelText']} :">
 				<h:outputText value="Abis" />
 			</p:column>
 

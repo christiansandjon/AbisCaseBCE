@@ -15,16 +15,19 @@ public class ActivityController implements Serializable {
 	@Inject
 	private Activity currentActivity;
 	private List<Activity> displayedActivities;
-	
+
 	public Activity getCurrentActivity() {
 		return currentActivity;
 	}
+
 	public void setCurrentActivity(Activity currentActivity) {
 		this.currentActivity = currentActivity;
 	}
+
 	public List<Activity> getDisplayedActivities() {
 		return displayedActivities;
 	}
+
 	public void setDisplayedActivities(List<Activity> displayedActivities) {
 		this.displayedActivities = displayedActivities;
 	}

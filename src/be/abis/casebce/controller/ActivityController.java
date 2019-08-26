@@ -3,12 +3,14 @@ package be.abis.casebce.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import be.abis.casebce.model.Activity;
 
 @Named
+@SessionScoped
 public class ActivityController implements Serializable {
 	private static final long serialVersionUID = 3686922158514988637L;
 

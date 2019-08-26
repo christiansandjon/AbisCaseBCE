@@ -1,20 +1,18 @@
 package be.abis.casebce.model;
 
-public class Address {
+import java.io.Serializable;
 
+import javax.faces.bean.SessionScoped;
+
+@SessionScoped
+public class Address implements Serializable {
+
+	// Variables
 	private int number;
 	private String street;
 	private String zipCode;
 	private String town;
 	private String country;
-
-	public Address(int number, String street, String zipCode, String town, String country) {
-		this.number = number;
-		this.street = street;
-		this.zipCode = zipCode;
-		this.town = town;
-		this.country = country;
-	}
 
 	public int getNumber() {
 		return number;

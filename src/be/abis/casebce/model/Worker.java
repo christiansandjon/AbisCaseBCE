@@ -1,12 +1,14 @@
 package be.abis.casebce.model;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class Worker {
+public class Worker implements Serializable{
 	private String login;
 	private String password;
 	private String lastName;
@@ -15,16 +17,7 @@ public class Worker {
 	@Inject
 	private Address address;
 	
-	public Worker(String login, String password, String lastName, String firstName, String bankAcount,
-			Address address) {
-		this.login = login;
-		this.password = password;
-		this.lastName = lastName;
-		this.firstName = firstName;
-		this.bankAcount = bankAcount;
-		this.address = address;
-	}
-
+	
 	public String getLogin() {
 		return login;
 	}

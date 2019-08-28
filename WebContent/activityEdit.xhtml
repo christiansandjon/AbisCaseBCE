@@ -12,28 +12,43 @@
 <h:body>
 	<p:panel header="#{msgs.activityEditTitle}">
 		<h:form id="activityEdit">
+			<p:messages globalOnly="true" showDetail="true" />
 			<p:outputLabel value="#{msgs.projectLabelText}" />
-			<p:selectOneMenu id="project">
-				<f:selectItems value="Project" />
+			<p:selectOneMenu id="project"
+				value="#{activityController.currentActivity.project}" converter="activityProjectConverter">
+				<f:selectItems value="#{activityController.potentialProjects}"
+					var="potentialProject" itemLabel="#{potentialProject.name}"
+					itemValue="#{potentialProject}" />
 			</p:selectOneMenu>
 			<br />
 			<p:outputLabel value="#{msgs.startTimeLabelText}" />
-			<p:datePicker value="#{activityController.currentActivity.start}" showTime="true" pattern="dd-MM-yyyy kk:mm">
+			<p:datePicker id="start"
+				value="#{activityController.currentActivity.start}" showTime="true"
+				stepMinute="15" pattern="dd-MM-yyyy" hourFormat="24">
 				<f:converter converterId="dateTimeConverter" />
 			</p:datePicker>
+			<p:message for="start" />
 			<br />
 			<p:outputLabel value="#{msgs.endTimeLabelText}" />
-			<p:datePicker value="#{activityController.currentActivity.end}" timeOnly="true" pattern="kk:mm">
+			<p:datePicker id="end"
+				value="#{activityController.currentActivity.end}" timeOnly="true"
+				stepMinute="15" pattern="kk:mm">
 				<f:converter converterId="hourConverter" />
 			</p:datePicker>
+			<p:message for="end" />
 			<br />
 			<p:outputLabel value="#{msgs.descriptionLabelText}" />
 			<br />
-			<p:inputTextarea value="#{activityController.currentActivity.description}" rows="10" cols="30" />
+			<p:inputTextarea id="description"
+				value="#{activityController.currentActivity.description}" rows="10"
+				cols="30" />
+			<p:message for="description" />
 			<br />
 			<br />
-			<p:commandButton value="#{msgs.validateButtonText}" />
-			<p:commandButton value="#{msgs.cancelButtonText}" />
+			<p:commandButton value="#{msgs.validateButtonText}" ajax="false"
+				action="#{activityController.validateEdition}" />
+			<p:commandButton value="#{msgs.cancelButtonText}" immediate="true" ajax="false"
+				action="activityInfo.xhtml?faces-redirected=true" />
 		</h:form>
 	</p:panel>
 </h:body>

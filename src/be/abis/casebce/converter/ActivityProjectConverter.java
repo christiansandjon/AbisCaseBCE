@@ -15,10 +15,12 @@ public class ActivityProjectConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) throws ConverterException {
-		ValueExpression vex = arg0.getApplication().getExpressionFactory().createValueExpression(arg0.getELContext(),"#{activityController}",ActivityController.class);
+		int hashCode = Integer.parseInt(arg2);
+		ValueExpression vex = arg0.getApplication().getExpressionFactory().createValueExpression(arg0.getELContext(),
+				"#{activityController}", ActivityController.class);
 		ActivityController controller = (ActivityController) vex.getValue(arg0.getELContext());
 		for (int i = 0; i < controller.getPotentialProjects().size(); i++) {
-			if (controller.getPotentialProjects().get(i).getName().equalsIgnoreCase(arg2)) {
+			if (controller.getPotentialProjects().get(i).hashCode() == hashCode) {
 				return controller.getPotentialProjects().get(i);
 			}
 		}
@@ -28,7 +30,7 @@ public class ActivityProjectConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) throws ConverterException {
 		Project project = (Project) arg2;
-		return project.getName();
+		return ((Integer) project.hashCode()).toString();
 	}
 
 }

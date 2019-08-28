@@ -65,4 +65,9 @@ public class Project implements Serializable {
 		this.name = name;
 	}
 
+	@Override
+	public int hashCode() {
+		return 100 + (this.getName() + " " + (this.getClient() != null ? this.getClient().getName() : "")).hashCode();
+	}
+
 }

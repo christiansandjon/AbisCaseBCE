@@ -17,9 +17,10 @@ public class HourConverter implements Converter {
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) throws ConverterException {
 		LocalDateTime date = null;
 		try {
-			date = LocalDateTime.parse(arg2, DateTimeFormatter.ofPattern("kk:mm"));
+			arg2 = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy ")) + arg2;
+			date = LocalDateTime.parse(arg2, DateTimeFormatter.ofPattern("dd-MM-yyyy kk:mm"));
 		} catch (Exception e) {
-			FacesMessage message = new FacesMessage("Invalid hour");
+			FacesMessage message = new FacesMessage(e.getMessage());
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ConverterException(message);
 		}

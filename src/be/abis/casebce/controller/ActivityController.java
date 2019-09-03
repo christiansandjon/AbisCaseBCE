@@ -2,6 +2,7 @@ package be.abis.casebce.controller;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -11,7 +12,7 @@ import javax.inject.Named;
 import be.abis.casebce.model.Activity;
 import be.abis.casebce.model.Project;
 
-@Named
+@Named("activitycontroller")
 @SessionScoped
 public class ActivityController implements Serializable {
 	private static final long serialVersionUID = 3686922158514988637L;
@@ -20,7 +21,21 @@ public class ActivityController implements Serializable {
 	private Activity currentActivity;
 	private List<Activity> displayedActivities;
 	private List<Project> potentialProjects;
-
+	
+// test display activity 
+	
+	private Project project1 = new Project("IRIS");
+	private Project project2 = new Project("ABIS");
+	private Project project3 = new Project("BCE");
+	
+	public ActivityController(){
+	displayedActivities = new ArrayList<Activity>();
+	displayedActivities.add(new Activity(LocalDateTime.now(), LocalDateTime.now(), project1, "creer webapp 1"));
+	displayedActivities.add(new Activity(LocalDateTime.now(), LocalDateTime.now(), project2, "creer webapp 2"));
+	displayedActivities.add(new Activity(LocalDateTime.now(), LocalDateTime.now(), project3, "creer webapp 3"));
+	}
+	// end region test 
+	
 	public Activity getCurrentActivity() {
 		return currentActivity;
 	}
@@ -51,4 +66,5 @@ public class ActivityController implements Serializable {
 				this.currentActivity.getEnd().getHour(), this.currentActivity.getEnd().getMinute()));
 		return "activityInfo.xhtml?faces-redirected=true";
 	}
+	
 }

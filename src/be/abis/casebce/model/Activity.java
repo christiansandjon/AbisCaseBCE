@@ -23,6 +23,15 @@ public class Activity implements Serializable {
 	public Activity() {
 	}
 
+	// arg constructor 
+	public Activity(LocalDateTime start, LocalDateTime end, Project project, String description) {
+		super();
+		this.start = start;
+		this.end = end;
+		this.project = project;
+		this.description = description;
+	}
+
 	// getter and setters
 
 	public LocalDateTime getStart() {
@@ -56,5 +65,7 @@ public class Activity implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	// methods 
 
 }

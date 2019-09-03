@@ -24,6 +24,10 @@ public class Project implements Serializable {
 
 	}
 
+	public Project(String name) {
+		this.name = name; 
+	}
+
 	// getters and setters
 	public Company getClient() {
 		return client;

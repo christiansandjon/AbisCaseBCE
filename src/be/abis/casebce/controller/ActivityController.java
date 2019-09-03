@@ -26,9 +26,7 @@ public class ActivityController implements Serializable {
 	private LocalDateTime end_date;
 	private LocalDateTime duration;
 	private String description;
-	private CommandButton cancel;
-	private CommandButton register;
-	
+
 	public Activity getCurrentActivity() {
 		return currentActivity;
 	}
@@ -85,20 +83,8 @@ public class ActivityController implements Serializable {
 		this.description = description;
 	}
 
-	public CommandButton getCancel() {
-		return cancel;
-	}
-
-	public void setCancel(CommandButton cancel) {
-		this.cancel = cancel;
-	}
-
-	public CommandButton getRegister() {
-		return register;
-	}
-
-	public void setRegister(CommandButton register) {
-		this.register = register;
+	public void createActivities() {
+		displayedActivities.add(this.currentActivity);
 	}
 
 	public String validateEdition() {

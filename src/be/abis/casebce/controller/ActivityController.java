@@ -9,6 +9,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.component.commandbutton.CommandButton;
+
 import be.abis.casebce.model.Activity;
 import be.abis.casebce.model.Project;
 
@@ -58,6 +60,10 @@ public class ActivityController implements Serializable {
 
 	public void setPotentialProjects(List<Project> potentialProjects) {
 		this.potentialProjects = potentialProjects;
+	}
+
+	public void createActivities() {
+		displayedActivities.add(this.currentActivity);
 	}
 
 	public String validateEdition() {

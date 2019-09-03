@@ -13,20 +13,32 @@
 	<h:panelGrid columns="2" cellpadding="5">
 
 		<p:outputLabel for="startdate" value="#{msgs['labelTextStartDate']}" />
-		<p:calendar id="startdate" pattern="MM/dd/yyy HH:mm" showOn="button" />
+		<p:calendar id="startdate" pattern="MM/dd/yyy HH:mm" showOn="button"
+			value="#{ActivityController.start_date}" />
 		<p:outputLabel for="duration" value="#{msgs['labelTextDuration']}" />
-		<p:calendar id="duration" pattern="HH:mm" timeOnly="true" />
+		<p:calendar id="duration" pattern="HH:mm" timeOnly="true"
+			value="#{ActivityController.duration}" />
 
-		<p:outputLabel for="description" value="#{msgs['labelTextDescription']} " />
-
+		<p:outputLabel for="description"
+			value="#{msgs['labelTextDescription']} " />
 		<p:inputTextarea id="description" rows="6" cols="33"
-			value="AutoResize" />
+			value="#{ActivityController.description}" />
+
 		<p:outputLabel for="project" value="#{msgs['labelTextProject']} " />
+		<!-- 
 		<p:selectOneMenu id="project" style="width:125px">
 			<f:selectItem itemLabel="#{msg['selectItemText']}" itemValue="" />
 			<f:selectItem itemLabel="Abis" itemValue="Abis" />
 			<f:selectItem itemLabel="Iris" itemValue="Iris" />
 			<f:selectItem itemLabel="Google" itemValue="Google" />
+		</p:selectOneMenu>
+		-->
+		<p:selectOneMenu id="project"
+			value="#{activityController.currentActivity.project}"
+			converter="activityProjectConverter">
+			<f:selectItems value="#{activityController.potentialProjects}"
+				var="potentialProject" itemLabel="#{potentialProject.name}"
+				itemValue="#{potentialProject}" />
 		</p:selectOneMenu>
 		<f:facet name="footer">
 			<h:form>

@@ -8,6 +8,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.component.commandbutton.CommandButton;
+
 import be.abis.casebce.model.Activity;
 import be.abis.casebce.model.Project;
 
@@ -20,7 +22,13 @@ public class ActivityController implements Serializable {
 	private Activity currentActivity;
 	private List<Activity> displayedActivities;
 	private List<Project> potentialProjects;
-
+	private LocalDateTime start_date;
+	private LocalDateTime end_date;
+	private LocalDateTime duration;
+	private String description;
+	private CommandButton cancel;
+	private CommandButton register;
+	
 	public Activity getCurrentActivity() {
 		return currentActivity;
 	}
@@ -43,6 +51,54 @@ public class ActivityController implements Serializable {
 
 	public void setPotentialProjects(List<Project> potentialProjects) {
 		this.potentialProjects = potentialProjects;
+	}
+
+	public LocalDateTime getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(LocalDateTime start_date) {
+		this.start_date = start_date;
+	}
+
+	public LocalDateTime getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(LocalDateTime end_date) {
+		this.end_date = end_date;
+	}
+
+	public LocalDateTime getDuration() {
+		return duration;
+	}
+
+	public void setDuration(LocalDateTime duration) {
+		this.duration = duration;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public CommandButton getCancel() {
+		return cancel;
+	}
+
+	public void setCancel(CommandButton cancel) {
+		this.cancel = cancel;
+	}
+
+	public CommandButton getRegister() {
+		return register;
+	}
+
+	public void setRegister(CommandButton register) {
+		this.register = register;
 	}
 
 	public String validateEdition() {

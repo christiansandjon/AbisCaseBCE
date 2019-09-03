@@ -17,7 +17,7 @@ import be.abis.casebce.model.Project;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.session.ActivitySessionRemote;
 
-@Named("activitycontroller")
+@Named
 @SessionScoped
 public class ActivityController implements Serializable {
 	private static final long serialVersionUID = 3686922158514988637L;
@@ -31,6 +31,7 @@ public class ActivityController implements Serializable {
 	
 	@EJB(name = "ActivitySession")
 	private ActivitySessionRemote activitySession;
+	 
 	@PostConstruct
 	public void init() {
 		this.displayedActivities = this.activitySession.getActivities(performer);

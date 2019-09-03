@@ -2,16 +2,20 @@ package be.abis.casebce.controller;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.component.commandbutton.CommandButton;
-
 import be.abis.casebce.model.Activity;
+import be.abis.casebce.model.Company;
 import be.abis.casebce.model.Project;
+import be.abis.casebce.model.Worker;
+import be.abis.casebce.session.ActivitySessionRemote;
 
 @Named
 @SessionScoped
@@ -20,15 +24,33 @@ public class ActivityController implements Serializable {
 
 	@Inject
 	private Activity currentActivity;
+	@Inject
+	Worker performer;
 	private List<Activity> displayedActivities;
 	private List<Project> potentialProjects;
 	
+	@EJB(name = "ActivitySession")
+	private ActivitySessionRemote activitySession;
+	@PostConstruct
+	public void init() {
+		this.displayedActivities = this.activitySession.getActivities(performer);
+		this.currentActivity = this.displayedActivities.get(0);
+	}
+
 	public Activity getCurrentActivity() {
 		return currentActivity;
 	}
 
 	public void setCurrentActivity(Activity currentActivity) {
 		this.currentActivity = currentActivity;
+	}
+
+	public Worker getPerformer() {
+		return performer;
+	}
+
+	public void setPerformer(Worker performer) {
+		this.performer = performer;
 	}
 
 	public List<Activity> getDisplayedActivities() {
@@ -55,6 +77,11 @@ public class ActivityController implements Serializable {
 		this.currentActivity.setEnd(LocalDateTime.of(this.currentActivity.getStart().getYear(),
 				this.currentActivity.getStart().getMonth(), this.currentActivity.getStart().getDayOfMonth(),
 				this.currentActivity.getEnd().getHour(), this.currentActivity.getEnd().getMinute()));
-		return "activityInfo.xhtml?faces-redirected=true";
+		Activity activity = activitySession.updateActivity(this.currentActivity);
+		if (activity != null) {
+			this.setCurrentActivity(activity);
+			return "activityInfo.xhtml?faces-redirected=true";
+		}
+		return "activityEdit.xhtml";
 	}
 }

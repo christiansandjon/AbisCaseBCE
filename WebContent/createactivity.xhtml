@@ -3,29 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>New title</title>
 </h:head>
 <h:body>
-	<h2>This is possible to fail</h2>
+	<h2>Create Activity</h2>
 	<h:panelGrid columns="2" cellpadding="5">
 
 		<p:outputLabel for="startdate" value="#{msgs['labelTextStartDate']}" />
 		<p:calendar id="startdate" pattern="MM/dd/yyy HH:mm" showOn="button"
-			value="#{ActivityController.start_date}" />
-		<p:outputLabel for="duration" value="#{msgs['labelTextDuration']}" />
-		<p:calendar id="duration" pattern="HH:mm" timeOnly="true"
-			value="#{ActivityController.duration}" />
+			value="#{ActivityController.currentActivity.start}" />
+		<p:outputLabel for="enddate" value="#{msgs['endTimeLabelText']}" />
+		<p:calendar id="enddate" pattern="MM/dd/yyy HH:mm" showOn="button"
+			value="#{ActivityController.currentActivity.end}" />
+		<ui:remove>
+			<!-- 
+			<p:outputLabel for="duration" value="#{msgs['labelTextDuration']}" />
+			<p:calendar id="duration" pattern="HH:mm" timeOnly="true"
+				value="#{ActivityController.duration}" />
+ 			-->
+		</ui:remove>
 
 		<p:outputLabel for="description"
 			value="#{msgs['labelTextDescription']} " />
 		<p:inputTextarea id="description" rows="6" cols="33"
-			value="#{ActivityController.description}" />
+			value="#{ActivityController.currentActivity.description}" />
 
 		<p:outputLabel for="project" value="#{msgs['labelTextProject']} " />
-		<!-- 
+		<ui:remove>
+			<!-- 
 		<p:selectOneMenu id="project" style="width:125px">
 			<f:selectItem itemLabel="#{msg['selectItemText']}" itemValue="" />
 			<f:selectItem itemLabel="Abis" itemValue="Abis" />
@@ -33,6 +42,7 @@
 			<f:selectItem itemLabel="Google" itemValue="Google" />
 		</p:selectOneMenu>
 		-->
+		</ui:remove>
 		<p:selectOneMenu id="project"
 			value="#{activityController.currentActivity.project}"
 			converter="activityProjectConverter">
@@ -46,9 +56,9 @@
 					style="margin-right:20px;" ajax="false" immediate="true"
 					action="activitydisplay" />
 				<p:commandButton id="register" value="#{msgs['registerButtonText']}"
-					style="margin-right:20px;" ajax="false" 
+					style="margin-right:20px;" ajax="false"
 					action="#{activityController.createActivitiy}" />
-					
+
 			</h:form>
 		</f:facet>
 

@@ -89,4 +89,17 @@ public class ActivityController implements Serializable {
 		return "activityEdit.xhtml";
 	}
 
+	// activity infos
+	public String activityInfo(Activity a) {
+		this.currentActivity = a;
+		System.out.println(a.getDescription());
+		return "activityinfo?faces-redirect=true";
+
+	}
+
+	// new activity
+	public String newActivity() {
+		return "createactivity?faces-redirect=true";
+	}
+
 }

@@ -15,11 +15,12 @@
 		style="text-align: center">ACTIVITIES</h1>
 
 	<h:form id="form">
+		<p:commandButton value="#{msgs['buttonNew']}" action="createactivity"
+			ajax="false" style="text-align: right">
+		</p:commandButton>
 		<p:dataView var="a" value="#{activityController.displayedActivities}">
-
 			<p:dataViewListItem>
 				<h:panelGrid columns="3" style="width:100%">
-
 					<p:outputPanel>
 						<h:panelGrid columns="3" cellpadding="5">
 							<h:outputText value="#{msgs['labelProjectName']} :" />
@@ -41,14 +42,11 @@
 						</h:panelGrid>
 					</p:outputPanel>
 					<p:commandButton value="#{msgs['buttonInfo']}"
-						action="#{activityController.activityInfo(a)}" ajax="false">
+						action="#{activityController.displayActivityInfo(a)}" ajax="false">
 					</p:commandButton>
 				</h:panelGrid>
 			</p:dataViewListItem>
 		</p:dataView>
-		<p:commandButton value="#{msgs['buttonNew']}"
-			action="#{activityController.newActivity}" ajax="false">
-		</p:commandButton>
 	</h:form>
 </h:body>
 </html>

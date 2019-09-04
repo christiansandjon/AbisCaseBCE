@@ -81,9 +81,13 @@ public class ActivityController implements Serializable {
 		Activity activity = activitySession.updateActivity(this.currentActivity);
 		if (activity != null) {
 			this.setCurrentActivity(activity);
-			return "activityInfo.xhtml?faces-redirected=true";
+			return "activityinfo.xhtml?faces-redirected=true";
 		}
-		return "activityEdit.xhtml";
+		return "activityedit.xhtml";
 	}
 	
+	public String cancelEdition() {
+		this.setCurrentActivity(activitySession.reuploadActivity(this.getCurrentActivity()));
+		return "activityinfo.xhtml?faces-redirected=true";
+	}
 }

@@ -43,11 +43,12 @@
 		<f:facet name="footer">
 			<h:form>
 				<p:commandButton id="cancel" value="#{msgs['cancelButtonText']}"
-					style="margin-right:20px;" ajax="false"
-					action="#{activityController.createActivities}" />
-				<p:commandButton id="register" value="#{msgs['registerButtonText']}"
 					style="margin-right:20px;" ajax="false" immediate="true"
 					action="activitydisplay" />
+				<p:commandButton id="register" value="#{msgs['registerButtonText']}"
+					style="margin-right:20px;" ajax="false" 
+					action="#{activityController.createActivities}" />
+					
 			</h:form>
 		</f:facet>
 

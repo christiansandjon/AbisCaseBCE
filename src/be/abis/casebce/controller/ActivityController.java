@@ -39,6 +39,7 @@ public class ActivityController implements Serializable {
 		this.displayedActivities = this.activitySession.getActivities(performer);
 		this.currentActivity = this.displayedActivities.get(0);
 		this.potentialProjects = this.projectSession.getProjects();
+		this.activitySession.test();
 	}
 
 	public Activity getCurrentActivity() {

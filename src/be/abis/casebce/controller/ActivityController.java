@@ -2,7 +2,6 @@ package be.abis.casebce.controller;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,10 +11,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import be.abis.casebce.model.Activity;
-import be.abis.casebce.model.Company;
 import be.abis.casebce.model.Project;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.session.ActivitySessionRemote;
+import be.abis.casebce.session.ProjectSessionRemote;
 
 @Named
 @SessionScoped
@@ -28,14 +27,18 @@ public class ActivityController implements Serializable {
 	Worker performer;
 	private List<Activity> displayedActivities;
 	private List<Project> potentialProjects;
-	
+
 	@EJB(name = "ActivitySession")
 	private ActivitySessionRemote activitySession;
-	 
+
+	@EJB(name = "ProjectSession")
+	private ProjectSessionRemote projectSession;
+
 	@PostConstruct
 	public void init() {
 		this.displayedActivities = this.activitySession.getActivities(performer);
 		this.currentActivity = this.displayedActivities.get(0);
+		this.potentialProjects = this.projectSession.getProjects();
 	}
 
 	public Activity getCurrentActivity() {
@@ -70,7 +73,7 @@ public class ActivityController implements Serializable {
 		this.potentialProjects = potentialProjects;
 	}
 
-	public void createActivities() {
+	public void createActivitiy() {
 		displayedActivities.add(this.currentActivity);
 	}
 

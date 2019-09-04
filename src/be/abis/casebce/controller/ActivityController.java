@@ -73,7 +73,7 @@ public class ActivityController implements Serializable {
 		this.potentialProjects = potentialProjects;
 	}
 
-	public void createActivities() {
+	public void createActivitiy() {
 		displayedActivities.add(this.currentActivity);
 	}
 

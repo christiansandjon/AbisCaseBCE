@@ -27,13 +27,13 @@ public class ActivityController implements Serializable {
 	Worker performer;
 	private List<Activity> displayedActivities;
 	private List<Project> potentialProjects;
-	
+
 	@EJB(name = "ActivitySession")
 	private ActivitySessionRemote activitySession;
-	 
+
 	@EJB(name = "ProjectSession")
 	private ProjectSessionRemote projectSession;
-	 
+
 	@PostConstruct
 	public void init() {
 		this.displayedActivities = this.activitySession.getActivities(performer);
@@ -88,5 +88,5 @@ public class ActivityController implements Serializable {
 		}
 		return "activityEdit.xhtml";
 	}
-	
+
 }

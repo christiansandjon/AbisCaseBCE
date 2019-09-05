@@ -30,8 +30,8 @@
 		<p:outputLabel value="#{msgs.descriptionLabelText}" /> #{activityController.currentActivity.description}
 	</p:panel>
 	<h:form>
-		<p:commandButton value="#{msgs.returnButtonText}" action="activitydisplay.xhtml?faces-redirect=true" />
-		<p:commandButton value="#{msgs.editButtonText}" action="activityedit.xhtml?faces-redirect=true" />
+		<p:commandButton value="#{msgs.returnButtonText}" action="activitydisplay?faces-redirect=true" />
+		<p:commandButton value="#{msgs.editButtonText}" action="activityedit?faces-redirect=true" />
 	</h:form>
 </h:body>
 </html>

@@ -37,7 +37,6 @@ public class ActivityController implements Serializable {
 	@PostConstruct
 	public void init() {
 		this.displayedActivities = this.activitySession.getActivities(performer);
-		this.currentActivity = this.displayedActivities.get(0);
 		this.potentialProjects = this.projectSession.getProjects();
 		this.activitySession.test();
 	}
@@ -85,14 +84,14 @@ public class ActivityController implements Serializable {
 		Activity activity = activitySession.updateActivity(this.currentActivity);
 		if (activity != null) {
 			this.setCurrentActivity(activity);
-			return "activityinfo.xhtml?faces-redirected=true";
+			return "activityinfo?faces-redirected=true";
 		}
-		return "activityedit.xhtml";
+		return "activityedit";
 	}
 	
 	public String cancelEdition() {
 		this.setCurrentActivity(activitySession.reuploadActivity(this.getCurrentActivity()));
-		return "activityinfo.xhtml?faces-redirected=true";
+		return "activityinfo?faces-redirected=true";
 	}
 
 	// activity infos

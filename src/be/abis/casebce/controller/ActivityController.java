@@ -15,6 +15,7 @@ import be.abis.casebce.model.Project;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.session.ActivitySessionRemote;
 import be.abis.casebce.session.ProjectSessionRemote;
+import be.abis.casebce.session.WorkerSessionRemote;
 
 @Named
 @SessionScoped
@@ -34,11 +35,25 @@ public class ActivityController implements Serializable {
 	@EJB(name = "ProjectSession")
 	private ProjectSessionRemote projectSession;
 
+	@EJB(name = "WorkerSession")
+	private WorkerSessionRemote workerSession;
+
 	@PostConstruct
 	public void init() {
+
+		performer = this.workerSession.getUser();
 		this.displayedActivities = this.activitySession.getActivities(performer);
 		this.potentialProjects = this.projectSession.getProjects();
 		this.activitySession.test();
+		this.workerSession.test();
+
+		System.out.println("==================");
+		System.out.println("Test performer.");
+		System.out.println(this.workerSession.getUser().getFirstName());
+		System.out.println(performer.getLastName());
+		System.out.println(performer.getLogin());
+		System.out.println(performer.getPerformerId());
+		System.out.println("==================");
 	}
 
 	public Activity getCurrentActivity() {
@@ -88,7 +103,7 @@ public class ActivityController implements Serializable {
 		}
 		return "activityedit";
 	}
-	
+
 	public String cancelEdition() {
 		this.setCurrentActivity(activitySession.reuploadActivity(this.getCurrentActivity()));
 		return "activityinfo?faces-redirected=true";

@@ -45,16 +45,6 @@ public class ActivityController implements Serializable {
 		this.displayedActivities = this.activitySession.getActivities(performer);
 		this.currentActivity = this.displayedActivities.get(0);
 		this.potentialProjects = this.projectSession.getProjects();
-		this.activitySession.test();
-		this.workerSession.test();
-
-		System.out.println("==================");
-		System.out.println("Test performer.");
-		System.out.println(this.workerSession.getUser().getFirstName());
-		System.out.println(performer.getLastName());
-		System.out.println(performer.getLogin());
-		System.out.println(performer.getPerformerId());
-		System.out.println("==================");
 	}
 
 	public Activity getCurrentActivity() {
@@ -89,8 +79,10 @@ public class ActivityController implements Serializable {
 		this.potentialProjects = potentialProjects;
 	}
 
-	public void createActivitiy() {
-		displayedActivities.add(this.currentActivity);
+	public String createActivitiy() {
+		this.activitySession.createActivity(this.currentActivity);
+		this.displayedActivities = this.activitySession.getActivities(performer);
+		return "activitydisplay?faces-redirected=true";
 	}
 
 	public String validateEdition() {
@@ -115,6 +107,15 @@ public class ActivityController implements Serializable {
 		this.currentActivity = a;
 		return "activityinfo?faces-redirect=true";
 
+	}
+	
+	public String generateNewActivityForm() {
+		
+		this.currentActivity = new Activity();
+		this.currentActivity.setPerformer(this.getPerformer());
+		this.currentActivity.setProject(this.potentialProjects.get(0));
+		
+		return "createactivity?faces-redirect=true";
 	}
 
 }

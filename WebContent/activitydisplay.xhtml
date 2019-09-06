@@ -15,7 +15,7 @@
 		style="text-align: center">ACTIVITIES</h1>
 
 	<h:form id="form">
-		<p:commandButton value="#{msgs['buttonNew']}" action="createactivity"
+		<p:commandButton value="#{msgs['buttonNew']}" action="#{activityController.generateNewActivityForm}"
 			ajax="false" style="text-align: right">
 		</p:commandButton>
 		<p:dataView var="a" value="#{activityController.displayedActivities}">

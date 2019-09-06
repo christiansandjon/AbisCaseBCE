@@ -25,6 +25,7 @@ public class ActivityController implements Serializable {
 	@Inject
 	private Activity currentActivity;
 	@Inject
+	@Named("worker")
 	Worker performer;
 	private List<Activity> displayedActivities;
 	private List<Project> potentialProjects;

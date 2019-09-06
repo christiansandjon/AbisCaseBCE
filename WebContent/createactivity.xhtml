@@ -10,7 +10,36 @@
 	<title>New title</title>
 </h:head>
 <h:body>
+	<h:form>
+		<p:tabMenu activeIndex="#{param.i}">
+			<p:menuitem value="Activity" outcome="activitydisplay"
+				icon="pi pi-star">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem value="Workingday" icon="pi pi-star">
+				<f:param name="i" value="1" />
+			</p:menuitem>
+
+			<ui:remove>
+
+				<p:menuitem value="Documentation" icon="pi pi-file">
+					<f:param name="i" value="2" />
+				</p:menuitem>
+				<p:menuitem value="Support" icon="pi pi-briefcase">
+					<f:param name="i" value="3" />
+				</p:menuitem>
+				<p:menuitem value="Social" icon="pi pi-user">
+					<f:param name="i" value="4" />
+				</p:menuitem>
+
+			</ui:remove>
+
+		</p:tabMenu>
+	</h:form>
 	<h2>Create Activity</h2>
+
+
+
 	<h:form>
 		<h:panelGrid columns="2" cellpadding="5">
 
@@ -31,7 +60,7 @@
 				value="#{msgs['labelTextDescription']} " />
 			<p:inputTextarea id="description" rows="6" cols="33"
 				value="#{activityController.currentActivity.description}" />
-	
+
 			<p:outputLabel for="project" value="#{msgs['labelTextProject']} " />
 			<p:selectOneMenu id="project"
 				value="#{activityController.currentActivity.project}"
@@ -41,13 +70,13 @@
 					itemValue="#{potentialProject}" />
 			</p:selectOneMenu>
 			<f:facet name="footer">
-					<p:commandButton id="cancel" value="#{msgs['cancelButtonText']}"
-						style="margin-right:20px;" ajax="false" immediate="true"
-						action="activitydisplay" />
-					<p:commandButton id="register" value="#{msgs['registerButtonText']}"
-						style="margin-right:20px;" ajax="false"
-						action="#{activityController.createActivitiy}" />
-	
+				<p:commandButton id="cancel" value="#{msgs['cancelButtonText']}"
+					style="margin-right:20px;" ajax="false" immediate="true"
+					action="activitydisplay" />
+				<p:commandButton id="register" value="#{msgs['registerButtonText']}"
+					style="margin-right:20px;" ajax="false"
+					action="#{activityController.createActivitiy}" />
+
 			</f:facet>
 
 		</h:panelGrid>

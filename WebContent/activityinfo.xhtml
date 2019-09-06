@@ -10,6 +10,31 @@
 	<title>#{msgs.activityInfoTitle}</title>
 </h:head>
 <h:body>
+	<h:form>
+		<p:tabMenu activeIndex="#{param.i}">
+			<p:menuitem value="Activity" outcome="activitydisplay"
+				icon="pi pi-star">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem value="Workingday" icon="pi pi-star">
+				<f:param name="i" value="1" />
+			</p:menuitem>
+
+			<ui:remove>
+				<p:menuitem value="Documentation" icon="pi pi-file">
+					<f:param name="i" value="2" />
+				</p:menuitem>
+				<p:menuitem value="Support" icon="pi pi-briefcase">
+					<f:param name="i" value="3" />
+				</p:menuitem>
+				<p:menuitem value="Social" icon="pi pi-user">
+					<f:param name="i" value="4" />
+				</p:menuitem>
+			</ui:remove>
+
+		</p:tabMenu>
+	</h:form>
+
 	<p:panel header="#{msgs.activityInfoTitle}">
 		<p:outputLabel value="#{msgs.projectLabelText}" /> #{activityController.currentActivity.project.name} (#{activityController.currentActivity.project.client.name})<br />
 		#{activityController.currentActivity.project.description} <br />

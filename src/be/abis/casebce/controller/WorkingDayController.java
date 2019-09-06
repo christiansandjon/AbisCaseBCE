@@ -12,6 +12,7 @@ import be.abis.casebce.model.ExternalWorker;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.model.WorkingDay;
 import be.abis.casebce.session.WorkerSessionRemote;
+import be.abis.casebce.session.WorkingDaySessionRemote;
 
 @Named
 @SessionScoped
@@ -24,15 +25,17 @@ public class WorkingDayController implements Serializable {
 
 	@EJB(name = "WorkerSession")
 	private WorkerSessionRemote workerSession;
-	
+	@EJB(name = "WorkingDaySession")
+	private WorkingDaySessionRemote workingDaySession;
+
 	@PostConstruct
 	public void init() {
 		this.worker = this.workerSession.getUser();
 		if (this.isAvailable()) {
-			System.out.println("need to retrieve open working day or create a new one");
+			this.currentWorkingDay = this.workingDaySession.getCurrentWorkingDay((ExternalWorker) this.getWorker());
 		}
 	}
-	
+
 	public Worker getWorker() {
 		return worker;
 	}
@@ -44,12 +47,13 @@ public class WorkingDayController implements Serializable {
 	public WorkingDay getCurrentWorkingDay() {
 		return currentWorkingDay;
 	}
+
 	public void setCurrentWorkingDay(WorkingDay currentWorkingDay) {
 		this.currentWorkingDay = currentWorkingDay;
 	}
-	
+
 	public boolean isAvailable() {
 		return this.getWorker() instanceof ExternalWorker;
 	}
-	
+
 }

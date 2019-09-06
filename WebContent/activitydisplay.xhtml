@@ -17,7 +17,7 @@
 				icon="pi pi-star">
 				<f:param name="i" value="0" />
 			</p:menuitem>
-			<p:menuitem value="Workingday" icon="pi pi-star">
+			<p:menuitem value="Workingday #{workingDayController.worker.login}" icon="pi pi-star">
 				<f:param name="i" value="1" />
 			</p:menuitem>
 
@@ -40,9 +40,8 @@
 
 
 	<h:form id="form">
-		<p:commandButton value="#{msgs['buttonNew']}"
-			action="#{activityController.generateNewActivityForm}" ajax="false"
-			style="text-align: right">
+		<p:commandButton style = "margin : 3px" value="#{msgs['buttonNew']}"
+			action="#{activityController.generateNewActivityForm}" ajax="false">
 		</p:commandButton>
 		<p:dataView var="a" value="#{activityController.displayedActivities}">
 			<p:dataViewListItem>

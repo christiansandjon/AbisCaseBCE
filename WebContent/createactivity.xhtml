@@ -43,7 +43,7 @@
 	<h:form>
 		<h:panelGrid columns="2" cellpadding="5">
 
-			<p:outputLabel for="startdate" value="#{msgs['labelTextStartDate']}" />
+			<p:outputLabel for="startdate" value="#{msgs['startTimeLabelText']}" />
 			<p:datePicker id="startdate"
 				value="#{activityController.currentActivity.start}" showTime="true"
 				stepMinute="15" pattern="dd-MM-yyyy" hourFormat="24">
@@ -57,11 +57,11 @@
 			</p:datePicker>
 
 			<p:outputLabel for="description"
-				value="#{msgs['labelTextDescription']} " />
+				value="#{msgs['descriptionLabelText']} " />
 			<p:inputTextarea id="description" rows="6" cols="33"
 				value="#{activityController.currentActivity.description}" />
 
-			<p:outputLabel for="project" value="#{msgs['labelTextProject']} " />
+			<p:outputLabel for="project" value="#{msgs['projectLabelText']} " />
 			<p:selectOneMenu id="project"
 				value="#{activityController.currentActivity.project}"
 				converter="activityProjectConverter">

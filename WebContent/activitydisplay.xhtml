@@ -48,21 +48,21 @@
 				<h:panelGrid columns="3" style="width:100%">
 					<p:outputPanel>
 						<h:panelGrid columns="3" cellpadding="5">
-							<h:outputText value="#{msgs['labelProjectName']} :" />
+							<h:outputText value="#{msgs['projectLabelText']}" />
 							<h:outputText value="#{a.project.name}" style="font-weight: bold" />
 							<h:outputText value="" />
 
-							<h:outputText value="#{msgs['startTimeLabelText']} :" />
+							<h:outputText value="#{msgs['startTimeLabelText']}" />
 							<h:outputText converter="dateTimeConverter" value="#{a.start}"
 								style="font-weight: bold" />
 							<h:outputText value="" />
 
-							<h:outputText value="#{msgs['endTimeLabelText']} :" />
+							<h:outputText value="#{msgs['endTimeLabelText']}" />
 							<h:outputText converter="hourConverter" value="#{a.end}"
 								style="font-weight: bold" />
 							<h:outputText value="" />
 
-							<h:outputText value="#{msgs['descriptionLabelText']} :" />
+							<h:outputText value="#{msgs['descriptionLabelText']}" />
 							<h:outputText value="#{a.description}" style="font-weight: bold" />
 						</h:panelGrid>
 					</p:outputPanel>

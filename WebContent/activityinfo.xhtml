@@ -12,7 +12,7 @@
 <h:body>
 	<p:panel header="#{msgs.activityInfoTitle}">
 		<p:outputLabel value="#{msgs.projectLabelText}" /> #{activityController.currentActivity.project.name} (#{activityController.currentActivity.project.client.name})<br />
-		#{activityController.currentActivity.project.description}<br />
+		#{activityController.currentActivity.project.description} <br />
 		<br />
 		<h:outputText value="#{activityController.currentActivity.start}">
 			<f:converter converterId="dateConverter" />
@@ -30,8 +30,10 @@
 		<p:outputLabel value="#{msgs.descriptionLabelText}" /> #{activityController.currentActivity.description}
 	</p:panel>
 	<h:form>
-		<p:commandButton value="#{msgs.returnButtonText}" action="activitydisplay?faces-redirect=true" />
-		<p:commandButton value="#{msgs.editButtonText}" action="activityedit?faces-redirect=true" />
+		<p:commandButton value="#{msgs.returnButtonText}"
+			action="activitydisplay?faces-redirect=true" />
+		<p:commandButton value="#{msgs.editButtonText}"
+			action="activityedit?faces-redirect=true" />
 	</h:form>
 </h:body>
 </html>

@@ -12,7 +12,25 @@
 	<title>Activities</title>
 </h:head>
 <h:body>
-	<h:form>
+	<script>
+		function displayElapsedTime(longEnteredTime) {
+			var now = new Date();
+			var elapsedTime = now.getSeconds() + now.getMinutes() * 60
+					+ now.getHours() * 60 * 60 - longEnteredTime;
+			var numHours = Math.floor(elapsedTime / 3600);
+
+			var minutesAndSeconds = elapsedTime - numHours;
+			var minutes = Math.floor((minutesAndSeconds % (60 * 60)) / 60);
+			var seconds = Math.floor(minutesAndSeconds % 60);
+
+			var innerHtmlText = (('0' + (numHours)).slice(-2) + ":"
+					+ ('0' + (minutes)).slice(-2) + ":" + ('0' + (seconds))
+					.slice(-2));
+
+			return innerHtmlText;
+		}
+	</script>
+	<h:form id="menu">
 		<p:tabMenu activeIndex="#{param.i}">
 			<p:menuitem value="Activity" outcome="activitydisplay"
 				icon="pi pi-star">
@@ -41,8 +59,18 @@
 	<h1>ACTIVITIES</h1>
 
 	<h:form id="form">
-		<pe:timer timeout="80000" forward="true" format="kk:mm:ss" />
-
+		<p:panel rendered="#{workingDayController.isAvailable()}">
+			<pe:timer timeout="80000"
+				rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+				formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.getStartTimeInSeconds()}');" />
+			<p:commandButton value="Close Working Day" ajax="false"
+				rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+				action="#{workingDayController.closeWorkingDay}" />
+			<p:commandButton value="Start Working Day" ajax="false"
+				rendered="#{workingDayController.currentWorkingDay.start == null}"
+				action="#{workingDayController.startWorkingDay}" />
+		</p:panel>
+		<br />
 		<p:commandButton style="margin : 3px" value="#{msgs['buttonNew']}"
 			action="#{activityController.generateNewActivityForm}" ajax="false">
 		</p:commandButton>

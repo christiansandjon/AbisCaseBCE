@@ -83,9 +83,12 @@ public class ActivityController implements Serializable {
 		this.currentActivity.setEnd(LocalDateTime.of(this.currentActivity.getStart().getYear(),
 				this.currentActivity.getStart().getMonth(), this.currentActivity.getStart().getDayOfMonth(),
 				this.currentActivity.getEnd().getHour(), this.currentActivity.getEnd().getMinute()));
-		this.activitySession.createActivity(this.currentActivity);
-		this.displayedActivities = this.activitySession.getActivities(performer);
-		return "activitydisplay?faces-redirected=true";
+		Activity newActivity = this.activitySession.createActivity(this.currentActivity);
+		if (newActivity == null) {
+			return "createactivity?faces-redirected=true";
+		}
+		this.currentActivity = newActivity;
+		return "activityinfo?faces-redirected=true";
 	}
 
 	public String validateEdition() {
@@ -97,7 +100,7 @@ public class ActivityController implements Serializable {
 			this.setCurrentActivity(activity);
 			return "activityinfo?faces-redirected=true";
 		}
-		return "activityedit";
+		return "activityedit?faces-redirected=true";
 	}
 
 	public String cancelEdition() {
@@ -110,6 +113,11 @@ public class ActivityController implements Serializable {
 		this.currentActivity = a;
 		return "activityinfo?faces-redirect=true";
 
+	}
+	
+	public String displayActivityList() {
+		this.displayedActivities = this.activitySession.getActivities(this.getPerformer());
+		return "activitydisplay?faces-redirect=true";
 	}
 
 	public String generateNewActivityForm() {

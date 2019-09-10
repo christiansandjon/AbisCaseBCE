@@ -80,6 +80,9 @@ public class ActivityController implements Serializable {
 	}
 
 	public String createActivitiy() {
+		this.currentActivity.setEnd(LocalDateTime.of(this.currentActivity.getStart().getYear(),
+				this.currentActivity.getStart().getMonth(), this.currentActivity.getStart().getDayOfMonth(),
+				this.currentActivity.getEnd().getHour(), this.currentActivity.getEnd().getMinute()));
 		this.activitySession.createActivity(this.currentActivity);
 		this.displayedActivities = this.activitySession.getActivities(performer);
 		return "activitydisplay?faces-redirected=true";
@@ -108,13 +111,13 @@ public class ActivityController implements Serializable {
 		return "activityinfo?faces-redirect=true";
 
 	}
-	
+
 	public String generateNewActivityForm() {
-		
+
 		this.currentActivity = new Activity();
 		this.currentActivity.setPerformer(this.getPerformer());
 		this.currentActivity.setProject(this.potentialProjects.get(0));
-		
+
 		return "createactivity?faces-redirect=true";
 	}
 

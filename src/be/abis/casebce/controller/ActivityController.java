@@ -43,7 +43,7 @@ public class ActivityController implements Serializable {
 	public void init() {
 
 		performer = this.workerSession.getUser();
-		this.displayedActivities = this.activitySession.getActivities(performer);
+		this.displayedActivities = this.activitySession.getActivities(performer.getId());
 		this.potentialProjects = this.projectSession.getProjects();
 	}
 
@@ -116,7 +116,7 @@ public class ActivityController implements Serializable {
 	}
 	
 	public String displayActivityList() {
-		this.displayedActivities = this.activitySession.getActivities(this.getPerformer());
+		this.displayedActivities = this.activitySession.getActivities(this.getPerformer().getId());
 		return "activitydisplay?faces-redirect=true";
 	}
 

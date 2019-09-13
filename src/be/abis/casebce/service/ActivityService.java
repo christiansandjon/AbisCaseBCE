@@ -36,4 +36,17 @@ public class ActivityService {
 		}
 		return activities;
 	}
+	
+	public Activity getActivity(int activityId) {
+		WebTarget target = this.basicTarget.path(Integer.toString(activityId));
+		Activity activity = null;
+		try {
+			activity = target.request().get(Activity.class);
+		} catch (WebApplicationException e) {
+			Response res = e.getResponse();
+			ApiError err = res.readEntity(ApiError.class);
+			System.out.println(err.getTitle() + ": " + err.getDescription());
+		}
+		return activity;
+	}
 }

@@ -107,6 +107,7 @@ public class ActivityController implements Serializable {
 
 	public String cancelEdition() {
 //		this.setCurrentActivity(activitySession.reuploadActivity(this.getCurrentActivity()));
+		this.setCurrentActivity(activityService.getActivity(this.currentActivity.getActivityId()));
 		return "activityinfo?faces-redirected=true";
 	}
 

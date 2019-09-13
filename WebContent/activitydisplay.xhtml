@@ -12,7 +12,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Activities</title>
 </h:head>
-
 <h:body>
 	<script>
 		function displayElapsedTime(longEnteredTime) {
@@ -26,33 +25,31 @@
 			var innerHtmlText = (('0' + (numHours)).slice(-2) + ":"
 					+ ('0' + (minutes)).slice(-2) + ":" + ('0' + (seconds))
 					.slice(-2));
-
 			return innerHtmlText;
 		}
 	</script>
-
-	<h1>ACTIVITIES</h1>
-	<style type="text/css">
-.hideTabHeader>.ui-tabs-nav {
-	display: none !important;
-}
-</style>
-	<h:form id="form">
-		<p:toolbar rendered="#{workingDayController.isAvailable()}">
-			<f:facet name="left">
-				<p:commandButton type="button" value="Activity" icon="pi pi-folder-open" action="displayactivity" />
-				<pe:timer timeout="80000"
-					rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
-					formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.getStartTimeInSeconds()}');" />
-				<p:commandButton value="Close Working Day" ajax="false"
-					rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
-					action="#{workingDayController.closeWorkingDay}" />
-				<p:commandButton value="Start Working Day" ajax="false"
-					rendered="#{workingDayController.currentWorkingDay.start == null}"
-					action="#{workingDayController.startWorkingDay}" />
+	<h:form>
+		<p:toolbar>
+			<f:facet name="left" rendered="#{workingDayController.isAvailable()}">
+				<p:commandButton type="submit" value="Activity" immediate="true"
+					icon="pi pi-folder-open" ajax="false"
+					action="activitydisplay" />
+				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
+					<pe:timer timeout="80000"
+						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.getStartTimeInSeconds()}');" />
+					<p:commandButton value="Close Working Day" ajax="false"
+						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+						action="#{workingDayController.closeWorkingDay}" />
+					<p:commandButton value="Start Working Day" ajax="false"
+						rendered="#{workingDayController.currentWorkingDay.start == null}"
+						action="#{workingDayController.startWorkingDay}" />
+				</h:panelGroup>
 			</f:facet>
 		</p:toolbar>
 		<br />
+
+		<h1>ACTIVITIES</h1>
 		<p:commandButton style="margin : 3px" value="#{msgs['buttonNew']}"
 			action="#{activityController.generateNewActivityForm}" ajax="false">
 		</p:commandButton>

@@ -4,45 +4,52 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>New title</title>
 </h:head>
 <h:body>
+	<script>
+		function displayElapsedTime(longEnteredTime) {
+			var now = new Date();
+			var elapsedTime = now.getSeconds() + now.getMinutes() * 60
+					+ now.getHours() * 60 * 60 - longEnteredTime;
+			var numHours = Math.floor(elapsedTime / 3600);
+			var minutesAndSeconds = elapsedTime - numHours;
+			var minutes = Math.floor((minutesAndSeconds % (60 * 60)) / 60);
+			var seconds = Math.floor(minutesAndSeconds % 60);
+			var innerHtmlText = (('0' + (numHours)).slice(-2) + ":"
+					+ ('0' + (minutes)).slice(-2) + ":" + ('0' + (seconds))
+					.slice(-2));
+			return innerHtmlText;
+		}
+	</script>
 	<h:form>
-		<p:tabMenu activeIndex="#{param.i}">
-			<p:menuitem value="Activity" outcome="activitydisplay"
-				icon="pi pi-star">
-				<f:param name="i" value="0" />
-			</p:menuitem>
-			<p:menuitem value="Workingday" icon="pi pi-star">
-				<f:param name="i" value="1" />
-			</p:menuitem>
-
-			<ui:remove>
-
-				<p:menuitem value="Documentation" icon="pi pi-file">
-					<f:param name="i" value="2" />
-				</p:menuitem>
-				<p:menuitem value="Support" icon="pi pi-briefcase">
-					<f:param name="i" value="3" />
-				</p:menuitem>
-				<p:menuitem value="Social" icon="pi pi-user">
-					<f:param name="i" value="4" />
-				</p:menuitem>
-
-			</ui:remove>
-
-		</p:tabMenu>
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton type="submit" value="Activity" immediate="true"
+					icon="pi pi-folder-open" ajax="false"
+					action="activitydisplay" />
+				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
+					<pe:timer timeout="80000"
+						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.getStartTimeInSeconds()}');" />
+					<p:commandButton value="Close Working Day" ajax="false"
+						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+						action="#{workingDayController.closeWorkingDay}" />
+					<p:commandButton value="Start Working Day" ajax="false"
+						rendered="#{workingDayController.currentWorkingDay.start == null}"
+						action="#{workingDayController.startWorkingDay}" />
+				</h:panelGroup>
+			</f:facet>
+		</p:toolbar>
+		<br />
 	</h:form>
 	<h2>Create Activity</h2>
-
-
-
 	<h:form>
 		<h:panelGrid columns="2" cellpadding="5">
-
 			<p:outputLabel for="startdate" value="#{msgs['startTimeLabelText']}" />
 			<p:datePicker id="startdate"
 				value="#{activityController.currentActivity.start}" showTime="true"
@@ -55,7 +62,6 @@
 				stepMinute="15" pattern="kk:mm">
 				<f:converter converterId="hourConverter" />
 			</p:datePicker>
-
 			<p:outputLabel for="description"
 				value="#{msgs['descriptionLabelText']} " />
 			<p:inputTextarea id="description" rows="6" cols="33"
@@ -76,11 +82,8 @@
 				<p:commandButton id="register" value="#{msgs['registerButtonText']}"
 					style="margin-right:20px;" ajax="false"
 					action="#{activityController.createActivitiy}" />
-
 			</f:facet>
-
 		</h:panelGrid>
 	</h:form>
-
 </h:body>
 </html>

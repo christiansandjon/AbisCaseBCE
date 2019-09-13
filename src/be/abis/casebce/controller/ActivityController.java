@@ -9,12 +9,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.google.common.util.concurrent.Service;
-
 import be.abis.casebce.model.Activity;
 import be.abis.casebce.model.Project;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.service.ActivityService;
+import be.abis.casebce.service.WorkerService;
 
 @Named
 @SessionScoped
@@ -30,6 +29,7 @@ public class ActivityController implements Serializable {
 	private List<Project> potentialProjects;
 	
 	private ActivityService activityService = new ActivityService();
+	private WorkerService workerService = new WorkerService();
 
 //	@EJB(name = "ActivitySession")
 //	private ActivitySessionRemote activitySession;
@@ -43,8 +43,9 @@ public class ActivityController implements Serializable {
 	@PostConstruct
 	public void init() {
 //		performer = this.workerSession.getUser();
+		this.performer = this.workerService.getUser();
 //		this.displayedActivities = this.activitySession.getActivities(performer.getId());
-		this.displayedActivities = this.activityService.getActivities(1);
+		this.displayedActivities = this.activityService.getActivities(this.performer.getId());
 //		this.potentialProjects = this.projectSession.getProjects();
 	}
 
@@ -118,7 +119,7 @@ public class ActivityController implements Serializable {
 	
 	public String displayActivityList() {
 //		this.displayedActivities = this.activitySession.getActivities(this.getPerformer().getId());
-		this.displayedActivities = this.activityService.getActivities(1);
+		this.displayedActivities = this.activityService.getActivities(this.performer.getId());
 		return "activitydisplay?faces-redirect=true";
 	}
 

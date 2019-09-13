@@ -10,6 +10,7 @@ import javax.inject.Named;
 import be.abis.casebce.model.ExternalWorker;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.model.WorkingDay;
+import be.abis.casebce.service.WorkerService;
 
 @Named
 @SessionScoped
@@ -19,6 +20,8 @@ public class WorkingDayController implements Serializable {
 	private Worker worker;
 	@Inject
 	private WorkingDay currentWorkingDay;
+	
+	private WorkerService workerService = new WorkerService();
 
 //	@EJB(name = "WorkerSession")
 //	private WorkerSessionRemote workerSession;
@@ -28,9 +31,10 @@ public class WorkingDayController implements Serializable {
 	@PostConstruct
 	public void init() {
 //		this.worker = this.workerSession.getUser();
-//		if (this.isAvailable()) {
+		this.worker = this.workerService.getUser();
+		if (this.isAvailable()) {
 //			this.currentWorkingDay = this.workingDaySession.getCurrentWorkingDay((ExternalWorker) this.getWorker());
-//		}
+		}
 	}
 
 	public Worker getWorker() {

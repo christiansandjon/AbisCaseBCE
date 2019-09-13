@@ -5,17 +5,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.google.common.util.concurrent.Service;
+
 import be.abis.casebce.model.Activity;
 import be.abis.casebce.model.Project;
 import be.abis.casebce.model.Worker;
-import be.abis.casebce.session.ActivitySessionRemote;
-import be.abis.casebce.session.ProjectSessionRemote;
-import be.abis.casebce.session.WorkerSessionRemote;
+import be.abis.casebce.service.ActivityService;
 
 @Named
 @SessionScoped
@@ -29,22 +28,24 @@ public class ActivityController implements Serializable {
 	Worker performer;
 	private List<Activity> displayedActivities;
 	private List<Project> potentialProjects;
+	
+	private ActivityService activityService = new ActivityService();
 
-	@EJB(name = "ActivitySession")
-	private ActivitySessionRemote activitySession;
-
-	@EJB(name = "ProjectSession")
-	private ProjectSessionRemote projectSession;
-
-	@EJB(name = "WorkerSession")
-	private WorkerSessionRemote workerSession;
+//	@EJB(name = "ActivitySession")
+//	private ActivitySessionRemote activitySession;
+//
+//	@EJB(name = "ProjectSession")
+//	private ProjectSessionRemote projectSession;
+//
+//	@EJB(name = "WorkerSession")
+//	private WorkerSessionRemote workerSession;
 
 	@PostConstruct
 	public void init() {
-
-		performer = this.workerSession.getUser();
-		this.displayedActivities = this.activitySession.getActivities(performer.getId());
-		this.potentialProjects = this.projectSession.getProjects();
+//		performer = this.workerSession.getUser();
+//		this.displayedActivities = this.activitySession.getActivities(performer.getId());
+		this.displayedActivities = this.activityService.getActivities(1);
+//		this.potentialProjects = this.projectSession.getProjects();
 	}
 
 	public Activity getCurrentActivity() {
@@ -83,11 +84,11 @@ public class ActivityController implements Serializable {
 		this.currentActivity.setEnd(LocalDateTime.of(this.currentActivity.getStart().getYear(),
 				this.currentActivity.getStart().getMonth(), this.currentActivity.getStart().getDayOfMonth(),
 				this.currentActivity.getEnd().getHour(), this.currentActivity.getEnd().getMinute()));
-		Activity newActivity = this.activitySession.createActivity(this.currentActivity);
-		if (newActivity == null) {
-			return "createactivity?faces-redirected=true";
-		}
-		this.currentActivity = newActivity;
+//		Activity newActivity = this.activitySession.createActivity(this.currentActivity);
+//		if (newActivity == null) {
+//			return "createactivity?faces-redirected=true";
+//		}
+//		this.currentActivity = newActivity;
 		return "activityinfo?faces-redirected=true";
 	}
 
@@ -95,16 +96,16 @@ public class ActivityController implements Serializable {
 		this.currentActivity.setEnd(LocalDateTime.of(this.currentActivity.getStart().getYear(),
 				this.currentActivity.getStart().getMonth(), this.currentActivity.getStart().getDayOfMonth(),
 				this.currentActivity.getEnd().getHour(), this.currentActivity.getEnd().getMinute()));
-		Activity activity = activitySession.updateActivity(this.currentActivity);
-		if (activity != null) {
-			this.setCurrentActivity(activity);
-			return "activityinfo?faces-redirected=true";
-		}
+//		Activity activity = activitySession.updateActivity(this.currentActivity);
+//		if (activity != null) {
+//			this.setCurrentActivity(activity);
+//			return "activityinfo?faces-redirected=true";
+//		}
 		return "activityedit?faces-redirected=true";
 	}
 
 	public String cancelEdition() {
-		this.setCurrentActivity(activitySession.reuploadActivity(this.getCurrentActivity()));
+//		this.setCurrentActivity(activitySession.reuploadActivity(this.getCurrentActivity()));
 		return "activityinfo?faces-redirected=true";
 	}
 
@@ -116,15 +117,16 @@ public class ActivityController implements Serializable {
 	}
 	
 	public String displayActivityList() {
-		this.displayedActivities = this.activitySession.getActivities(this.getPerformer().getId());
+//		this.displayedActivities = this.activitySession.getActivities(this.getPerformer().getId());
+		this.displayedActivities = this.activityService.getActivities(1);
 		return "activitydisplay?faces-redirect=true";
 	}
 
 	public String generateNewActivityForm() {
 
-		this.currentActivity = new Activity();
-		this.currentActivity.setPerformer(this.getPerformer());
-		this.currentActivity.setProject(this.potentialProjects.get(0));
+//		this.currentActivity = new Activity();
+//		this.currentActivity.setPerformer(this.getPerformer());
+//		this.currentActivity.setProject(this.potentialProjects.get(0));
 
 		return "createactivity?faces-redirect=true";
 	}

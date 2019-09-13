@@ -10,6 +10,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
+
 import be.abis.casebce.exception.ApiError;
 import be.abis.casebce.model.Activity;
 
@@ -17,7 +19,7 @@ public class ActivityService {
 	private WebTarget basicTarget;
 
 	public ActivityService() {
-		Client client = ClientBuilder.newClient();
+		Client client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
 		this.basicTarget = client.target("http://localhost:9080/trs-api/trs-service").path("activities");
 	}
 

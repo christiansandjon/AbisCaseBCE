@@ -7,6 +7,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -70,7 +71,7 @@ public class ActivityService {
 		}
 		return activity;
 	}
-	
+
 	public void updateActivity(Activity activity) throws Exception {
 		WebTarget target = this.basicTarget.path(Integer.toString(activity.getActivityId()));
 		Response res = target.request().put(Entity.entity(activity, MediaType.APPLICATION_JSON));

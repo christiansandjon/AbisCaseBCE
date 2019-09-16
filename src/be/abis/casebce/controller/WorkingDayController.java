@@ -67,6 +67,7 @@ public class WorkingDayController implements Serializable {
 	public void startWorkingDay() {
 		// this.currentWorkingDay =
 		// this.workingDaySession.startWorkingDay(this.currentWorkingDay);
+		this.currentWorkingDay = this.workingDayService.startWorkingDay(this.currentWorkingDay);
 	}
 
 	public void closeWorkingDay() {

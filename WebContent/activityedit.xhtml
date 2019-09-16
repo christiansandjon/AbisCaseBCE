@@ -34,7 +34,7 @@
 				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
 					<pe:timer timeout="80000"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
-						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.getStartTimeInSeconds()}');" />
+						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
 					<p:commandButton value="Close Working Day" ajax="false"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
 						action="#{workingDayController.closeWorkingDay}" />

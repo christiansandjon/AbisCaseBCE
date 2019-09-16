@@ -8,12 +8,24 @@ import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 @Named
 @SessionScoped
 public class WorkingDay implements Serializable {
 
 	private int id;
+	@JsonFormat(pattern = "dd-MM-yyyy kk:mm")
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime start;
+	@JsonFormat(pattern = "dd-MM-yyyy kk:mm")
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime end;
 
 	@Inject
@@ -52,7 +64,7 @@ public class WorkingDay implements Serializable {
 		this.worker = worker;
 	}
 
-	public long getStartTimeInSeconds() {
+	public long calculateStartTimeInSeconds() {
 		return this.start.getLong(ChronoField.SECOND_OF_DAY);
 	}
 }

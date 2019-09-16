@@ -13,6 +13,7 @@ import be.abis.casebce.model.Activity;
 import be.abis.casebce.model.Project;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.service.ActivityService;
+import be.abis.casebce.service.ProjectService;
 import be.abis.casebce.service.WorkerService;
 
 @Named
@@ -30,7 +31,8 @@ public class ActivityController implements Serializable {
 	
 	private ActivityService activityService = new ActivityService();
 	private WorkerService workerService = new WorkerService();
-
+	private ProjectService projectService = new ProjectService();
+	
 //	@EJB(name = "ActivitySession")
 //	private ActivitySessionRemote activitySession;
 //
@@ -46,7 +48,7 @@ public class ActivityController implements Serializable {
 		this.performer = this.workerService.getUser();
 //		this.displayedActivities = this.activitySession.getActivities(performer.getId());
 		this.displayedActivities = this.activityService.getActivities(this.performer.getId());
-//		this.potentialProjects = this.projectSession.getProjects();
+		this.potentialProjects = this.projectService.getProjects();
 	}
 
 	public Activity getCurrentActivity() {

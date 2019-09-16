@@ -6,8 +6,11 @@ import java.util.List;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
@@ -23,6 +26,25 @@ public class ActivityService {
 		this.basicTarget = client.target("http://localhost:9080/trs-api/trs-service").path("activities");
 	}
 
+	public void addActivity(Activity activity) {
+		WebTarget target = this.basicTarget.path("add");
+		ApiError err = new ApiError();
+		// getActivities(activity.getPerformer().getId()).add(activity);
+		try {
+			Invocation.Builder builderPost = target.request();
+			Response responsePost = builderPost.post(Entity.entity(activity, MediaType.APPLICATION_JSON));
+			Integer statuscode = responsePost.getStatus();
+			if (statuscode.toString().startsWith("4"))
+				err = responsePost.readEntity(ApiError.class);
+
+		} catch (WebApplicationException e) {
+			Response resp = e.getResponse();
+			err = resp.readEntity(ApiError.class);
+			System.out.println(err.getTitle() + ": " + err.getDescription());
+		}
+
+	}
+
 	public List<Activity> getActivities(int performerId) {
 		WebTarget target = this.basicTarget.queryParam("worker-id", performerId);
 		List<Activity> activities = new ArrayList<Activity>();
@@ -36,7 +58,7 @@ public class ActivityService {
 		}
 		return activities;
 	}
-	
+
 	public Activity getActivity(int activityId) {
 		WebTarget target = this.basicTarget.path(Integer.toString(activityId));
 		Activity activity = null;

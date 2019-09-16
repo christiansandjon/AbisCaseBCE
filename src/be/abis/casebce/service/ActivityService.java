@@ -73,10 +73,8 @@ public class ActivityService {
 	
 	public void updateActivity(Activity activity) throws Exception {
 		WebTarget target = this.basicTarget.path(Integer.toString(activity.getActivityId()));
-		try {
-			target.request().put(Entity.entity(activity, MediaType.APPLICATION_JSON));
-		} catch (WebApplicationException e) {
-			Response res = e.getResponse();
+		Response res = target.request().put(Entity.entity(activity, MediaType.APPLICATION_JSON));
+		if (Integer.toString(res.getStatus()).startsWith("4")) {
 			ApiError err = res.readEntity(ApiError.class);
 			throw new Exception(err.getTitle() + ": " + err.getDescription());
 		}

@@ -3,6 +3,8 @@ package be.abis.casebce.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -27,19 +29,13 @@ public class ActivityService {
 
 	public void addActivity(Activity activity) {
 		WebTarget target = this.basicTarget.path("add");
-		ApiError err = new ApiError();
-		// getActivities(activity.getPerformer().getId()).add(activity);
-		try {
-			Invocation.Builder builderPost = target.request();
-			Response responsePost = builderPost.post(Entity.entity(activity, MediaType.APPLICATION_JSON));
-			Integer statuscode = responsePost.getStatus();
-			if (statuscode.toString().startsWith("4"))
-				err = responsePost.readEntity(ApiError.class);
-
-		} catch (WebApplicationException e) {
-			Response resp = e.getResponse();
-			err = resp.readEntity(ApiError.class);
-			System.out.println(err.getTitle() + ": " + err.getDescription());
+		Response responsePost = target.request().post(Entity.entity(activity, MediaType.APPLICATION_JSON));
+		if (Integer.toString(responsePost.getStatus()).startsWith("2")) {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			FacesMessage facesMessage = new FacesMessage("Activity has been added");
+			facesContext.addMessage(null, facesMessage);
+		} else if (Integer.toString(responsePost.getStatus()).startsWith("4")) {
+			throw new WebApplicationException("Activity exist already");
 		}
 
 	}
@@ -70,7 +66,7 @@ public class ActivityService {
 		}
 		return activity;
 	}
-	
+
 	public void updateActivity(Activity activity) throws Exception {
 		WebTarget target = this.basicTarget.path(Integer.toString(activity.getActivityId()));
 		try {

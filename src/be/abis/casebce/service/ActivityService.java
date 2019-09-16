@@ -6,8 +6,10 @@ import java.util.List;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
@@ -48,5 +50,16 @@ public class ActivityService {
 			System.out.println(err.getTitle() + ": " + err.getDescription());
 		}
 		return activity;
+	}
+	
+	public void updateActivity(Activity activity) throws Exception {
+		WebTarget target = this.basicTarget.path(Integer.toString(activity.getActivityId()));
+		try {
+			target.request().put(Entity.entity(activity, MediaType.APPLICATION_JSON));
+		} catch (WebApplicationException e) {
+			Response res = e.getResponse();
+			ApiError err = res.readEntity(ApiError.class);
+			throw new Exception(err.getTitle() + ": " + err.getDescription());
+		}
 	}
 }

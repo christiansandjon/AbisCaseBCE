@@ -102,7 +102,12 @@ public class ActivityController implements Serializable {
 //			this.setCurrentActivity(activity);
 //			return "activityinfo?faces-redirected=true";
 //		}
-		return "activityedit?faces-redirected=true";
+		try {
+			this.activityService.updateActivity(this.currentActivity);
+		} catch (Exception e) {
+			return "activityedit?faces-redirected=true";
+		}
+		return "activityinfo?faces-redirected=true";
 	}
 
 	public String cancelEdition() {

@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import be.abis.casebce.model.Login;
 import be.abis.casebce.model.Worker;
+import be.abis.casebce.service.WorkerService;
 
 @Named
 @SessionScoped
@@ -17,6 +18,8 @@ public class LoginController implements Serializable {
 	@Inject
 	@Named("worker")
 	private Worker worker;
+	
+	private WorkerService service = new WorkerService();
 	
 	public Login getLogin() {
 		return login;
@@ -32,6 +35,7 @@ public class LoginController implements Serializable {
 	}
 	
 	public String login() {
+		this.worker = this.service.login(this.login);
 		return "";
 	}
 	

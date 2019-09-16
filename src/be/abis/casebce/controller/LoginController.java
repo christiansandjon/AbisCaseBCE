@@ -36,7 +36,7 @@ public class LoginController implements Serializable {
 	
 	public String login() {
 		this.worker = this.service.login(this.login);
-		return "";
+		return "activitydisplay?faces-redirect=true";
 	}
 	
 	public String logout() {

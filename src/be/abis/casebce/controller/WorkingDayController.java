@@ -39,8 +39,6 @@ public class WorkingDayController implements Serializable {
 			// this.workingDaySession.getCurrentWorkingDay((ExternalWorker)
 			// this.getWorker());
 			this.currentWorkingDay = this.workingDayService.getCurrentWorkingDay(this.worker.getId());
-			System.out.println(this.currentWorkingDay.getWorker().getLogin() + " " + this.currentWorkingDay.getStart()
-					+ " " + this.currentWorkingDay.getEnd());
 		}
 	}
 
@@ -73,6 +71,7 @@ public class WorkingDayController implements Serializable {
 	public void closeWorkingDay() {
 		// this.currentWorkingDay =
 		// this.workingDaySession.closeWorkingDay(this.currentWorkingDay);
+		this.currentWorkingDay = this.workingDayService.closeWorkingDay(this.currentWorkingDay);
 	}
 
 }

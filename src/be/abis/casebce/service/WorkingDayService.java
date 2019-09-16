@@ -36,11 +36,22 @@ public class WorkingDayService {
 
 	public WorkingDay startWorkingDay(WorkingDay workingDay) {
 		WebTarget target = this.baseTarget.path("start");
-		try {
-			Response res = target.request().put(Entity.entity(workingDay, MediaType.APPLICATION_JSON));
+		Response res = target.request().put(Entity.entity(workingDay, MediaType.APPLICATION_JSON));
+		if (Integer.toString(res.getStatus()).startsWith("2")) {
 			workingDay = res.readEntity(WorkingDay.class);
-		} catch (WebApplicationException e) {
-			Response res = e.getResponse();
+		} else if (Integer.toString(res.getStatus()).startsWith("4")) {
+			ApiError err = res.readEntity(ApiError.class);
+			System.out.println(err.getTitle() + ": " + err.getDescription());
+		}
+		return workingDay;
+	}
+	
+	public WorkingDay closeWorkingDay(WorkingDay workingDay) {
+		WebTarget target = this.baseTarget.path("close");
+		Response res = target.request().put(Entity.entity(workingDay, MediaType.APPLICATION_JSON));
+		if (Integer.toString(res.getStatus()).startsWith("2")) {
+			workingDay = res.readEntity(WorkingDay.class);
+		} else if (Integer.toString(res.getStatus()).startsWith("4")) {
 			ApiError err = res.readEntity(ApiError.class);
 			System.out.println(err.getTitle() + ": " + err.getDescription());
 		}

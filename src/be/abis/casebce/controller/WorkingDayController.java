@@ -11,6 +11,7 @@ import be.abis.casebce.model.ExternalWorker;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.model.WorkingDay;
 import be.abis.casebce.service.WorkerService;
+import be.abis.casebce.service.WorkingDayService;
 
 @Named
 @SessionScoped
@@ -20,20 +21,26 @@ public class WorkingDayController implements Serializable {
 	private Worker worker;
 	@Inject
 	private WorkingDay currentWorkingDay;
-	
-	private WorkerService workerService = new WorkerService();
 
-//	@EJB(name = "WorkerSession")
-//	private WorkerSessionRemote workerSession;
-//	@EJB(name = "WorkingDaySession")
-//	private WorkingDaySessionRemote workingDaySession;
+	private WorkerService workerService = new WorkerService();
+	private WorkingDayService workingDayService = new WorkingDayService();
+
+	// @EJB(name = "WorkerSession")
+	// private WorkerSessionRemote workerSession;
+	// @EJB(name = "WorkingDaySession")
+	// private WorkingDaySessionRemote workingDaySession;
 
 	@PostConstruct
 	public void init() {
-//		this.worker = this.workerSession.getUser();
+		// this.worker = this.workerSession.getUser();
 		this.worker = this.workerService.getUser();
 		if (this.isAvailable()) {
-//			this.currentWorkingDay = this.workingDaySession.getCurrentWorkingDay((ExternalWorker) this.getWorker());
+			// this.currentWorkingDay =
+			// this.workingDaySession.getCurrentWorkingDay((ExternalWorker)
+			// this.getWorker());
+			this.currentWorkingDay = this.workingDayService.getCurrentWorkingDay(this.worker.getId());
+			System.out.println(this.currentWorkingDay.getWorker().getLogin() + " " + this.currentWorkingDay.getStart()
+					+ " " + this.currentWorkingDay.getEnd());
 		}
 	}
 
@@ -58,11 +65,13 @@ public class WorkingDayController implements Serializable {
 	}
 
 	public void startWorkingDay() {
-//		this.currentWorkingDay = this.workingDaySession.startWorkingDay(this.currentWorkingDay);
+		// this.currentWorkingDay =
+		// this.workingDaySession.startWorkingDay(this.currentWorkingDay);
 	}
 
 	public void closeWorkingDay() {
-//		this.currentWorkingDay = this.workingDaySession.closeWorkingDay(this.currentWorkingDay);
+		// this.currentWorkingDay =
+		// this.workingDaySession.closeWorkingDay(this.currentWorkingDay);
 	}
 
 }

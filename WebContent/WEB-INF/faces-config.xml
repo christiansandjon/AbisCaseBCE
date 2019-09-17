@@ -5,7 +5,7 @@
 	version="2.2">
 	<application>
 		<resource-bundle>
-			<base-name>be.abis.casebce.properties.dictionnary_en</base-name>
+			<base-name>be.abis.casebce.properties.dictionary</base-name>
 			<var>msgs</var>
 		</resource-bundle>
 		<locale-config>

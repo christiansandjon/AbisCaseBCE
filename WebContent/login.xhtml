@@ -12,23 +12,25 @@
 </h:head>
 
 <h:body>
-	<h:form id="loginForm">
-		<p:fieldset style="margin-bottom:20px">
-			<p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
-				<h:outputText value="#{msgs['loginLabel']} :" />
-				<p:inputText id="login" value="#{loginController.login.login}"
-					required="true" requiredMessage="Ce champs ne doit pas etre vide" />
-				<p:message for="login" style=" color:red" />
 
-				<h:outputLabel value="#{msgs['passwordLabel']} :" required="true" />
-				<p:password id="pwd" value="#{loginController.login.password}"
-					required="true" requiredMessage="Ce champs ne doit pas etre vide" />
-				<p:message for="pwd" style="color:red" />
+	<h1 style="margin: 50px, 0; font-family:'Comic Sans MS',arial,helvetica; font-size:50px ;font-weight:bold; text-align: center;">BIENVENUE SUR <span style="color:#4d88ff; ">ABIS</span> COMPANY</h1>
+	<h:form id="loginForm" style="margin: 0 auto; width:800px;">
+		<p:panel id="basic" header="Connectez-vous" style="margin-bottom:50px; font-size:30px ; text-align: center;">
+		<p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
+			<h:outputText value="#{msgs['loginLabel']}" />
+			<p:inputText id="login" value="#{loginController.login.login}"
+				required="true" requiredMessage="Ce champs ne doit pas etre vide" />
+			<p:message for="login" style=" color:red" />
 
-				<p:commandButton value="#{msgs['loginLabel']}"
-					action="#{loginController.login}" ajax="false" />
-			</p:panelGrid>
-		</p:fieldset>
+			<h:outputLabel value="#{msgs['passwordLabel']}" required="true" />
+			<p:password id="pwd" value="#{loginController.login.password}"
+				required="true" requiredMessage="Ce champs ne doit pas etre vide" />
+			<p:message for="pwd" style="color:red" />
+
+			<p:commandButton value="#{msgs['buttonLogin']}" action="#{loginController.login}"
+				ajax="false" />
+		</p:panelGrid>
+		</p:panel>
 	</h:form>
 	<p:messages globalOnly="true" layout="table" errorStyle="color:red"
 		infoStyle="color:green" />

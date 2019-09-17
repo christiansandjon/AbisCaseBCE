@@ -35,7 +35,7 @@ public class WorkerService {
 		return worker;
 	}
 	
-	public Worker login(Login login) {
+	public Worker login(Login login) throws Exception {
 		Worker worker = null;
 		WebTarget target = this.basicTarget.path("login");
 		Response res = target.request().post(Entity.entity(login, MediaType.APPLICATION_JSON));
@@ -43,7 +43,7 @@ public class WorkerService {
 			worker = res.readEntity(Worker.class);
 		} else if (Integer.toString(res.getStatus()).startsWith("4")) {
 			ApiError err = res.readEntity(ApiError.class);
-			System.out.println(err.getTitle() + ": " + err.getDescription());
+			throw new Exception(err.getTitle() + ": " + err.getDescription());
 		}
 		return worker;
 	}

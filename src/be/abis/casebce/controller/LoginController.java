@@ -35,7 +35,12 @@ public class LoginController implements Serializable {
 	}
 	
 	public String login() {
-		this.worker = this.service.login(this.login);
+		try {
+			this.worker = this.service.login(this.login);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return "login?faces-redirect=true";
+		}
 		return "activitydisplay?faces-redirect=true";
 	}
 	

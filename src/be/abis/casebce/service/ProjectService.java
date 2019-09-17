@@ -16,15 +16,15 @@ import be.abis.casebce.exception.ApiError;
 import be.abis.casebce.model.Project;
 
 public class ProjectService {
-	private WebTarget basicTarget;
+	private WebTarget baseTarget;
 
 	public ProjectService() {
 		Client client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
-		this.basicTarget = client.target("http://localhost:9080/trs-api/trs-service").path("projects");
+		this.baseTarget = client.target("http://localhost:9080/trs-api/trs-service").path("projects");
 	}
 
 	public List<Project> getProjects() {
-		WebTarget target = this.basicTarget;
+		WebTarget target = this.baseTarget;
 		List<Project> projects = new ArrayList<Project>();
 		try {
 			projects = target.request().get(new GenericType<List<Project>>() {
@@ -36,6 +36,5 @@ public class ProjectService {
 		}
 		return projects;
 	}
-	
-	
+
 }

@@ -33,15 +33,6 @@ public class ActivityController implements Serializable {
 	private WorkerService workerService = new WorkerService();
 	private ProjectService projectService = new ProjectService();
 
-	// @EJB(name = "ActivitySession")
-	// private ActivitySessionRemote activitySession;
-	//
-	// @EJB(name = "ProjectSession")
-	// private ProjectSessionRemote projectSession;
-	//
-	// @EJB(name = "WorkerSession")
-	// private WorkerSessionRemote workerSession;
-
 	@PostConstruct
 	public void init() {
 		// performer = this.workerSession.getUser();
@@ -88,7 +79,7 @@ public class ActivityController implements Serializable {
 		this.currentActivity.setEnd(LocalDateTime.of(this.currentActivity.getStart().getYear(),
 				this.currentActivity.getStart().getMonth(), this.currentActivity.getStart().getDayOfMonth(),
 				this.currentActivity.getEnd().getHour(), this.currentActivity.getEnd().getMinute()));
-		
+
 		activityService.addActivity(currentActivity);
 		return "activityinfo?faces-redirected=true";
 	}
@@ -97,12 +88,6 @@ public class ActivityController implements Serializable {
 		this.currentActivity.setEnd(LocalDateTime.of(this.currentActivity.getStart().getYear(),
 				this.currentActivity.getStart().getMonth(), this.currentActivity.getStart().getDayOfMonth(),
 				this.currentActivity.getEnd().getHour(), this.currentActivity.getEnd().getMinute()));
-		// Activity activity =
-		// activitySession.updateActivity(this.currentActivity);
-		// if (activity != null) {
-		// this.setCurrentActivity(activity);
-		// return "activityinfo?faces-redirected=true";
-		// }
 		try {
 			this.activityService.updateActivity(this.currentActivity);
 		} catch (Exception e) {
@@ -112,7 +97,6 @@ public class ActivityController implements Serializable {
 	}
 
 	public String cancelEdition() {
-		// this.setCurrentActivity(activitySession.reuploadActivity(this.getCurrentActivity()));
 		this.setCurrentActivity(activityService.getActivity(this.currentActivity.getActivityId()));
 		return "activityinfo?faces-redirected=true";
 	}
@@ -125,8 +109,6 @@ public class ActivityController implements Serializable {
 	}
 
 	public String displayActivityList() {
-		// this.displayedActivities =
-		// this.activitySession.getActivities(this.getPerformer().getId());
 		this.displayedActivities = this.activityService.getActivities(this.performer.getId());
 		return "activitydisplay?faces-redirect=true";
 	}

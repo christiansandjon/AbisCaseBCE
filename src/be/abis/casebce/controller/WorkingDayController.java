@@ -25,19 +25,10 @@ public class WorkingDayController implements Serializable {
 	private WorkerService workerService = new WorkerService();
 	private WorkingDayService workingDayService = new WorkingDayService();
 
-	// @EJB(name = "WorkerSession")
-	// private WorkerSessionRemote workerSession;
-	// @EJB(name = "WorkingDaySession")
-	// private WorkingDaySessionRemote workingDaySession;
-
 	@PostConstruct
 	public void init() {
-		// this.worker = this.workerSession.getUser();
 		this.worker = this.workerService.getUser();
 		if (this.isAvailable()) {
-			// this.currentWorkingDay =
-			// this.workingDaySession.getCurrentWorkingDay((ExternalWorker)
-			// this.getWorker());
 			this.currentWorkingDay = this.workingDayService.getCurrentWorkingDay(this.worker.getId());
 		}
 	}
@@ -63,14 +54,10 @@ public class WorkingDayController implements Serializable {
 	}
 
 	public void startWorkingDay() {
-		// this.currentWorkingDay =
-		// this.workingDaySession.startWorkingDay(this.currentWorkingDay);
 		this.currentWorkingDay = this.workingDayService.startWorkingDay(this.currentWorkingDay);
 	}
 
 	public void closeWorkingDay() {
-		// this.currentWorkingDay =
-		// this.workingDaySession.closeWorkingDay(this.currentWorkingDay);
 		this.currentWorkingDay = this.workingDayService.closeWorkingDay(this.currentWorkingDay);
 	}
 

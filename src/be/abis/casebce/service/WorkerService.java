@@ -15,15 +15,15 @@ import be.abis.casebce.model.Login;
 import be.abis.casebce.model.Worker;
 
 public class WorkerService {
-	private WebTarget basicTarget;
+	private WebTarget baseTarget;
 
 	public WorkerService() {
 		Client client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
-		this.basicTarget = client.target("http://localhost:9080/trs-api/trs-service").path("workers");
+		this.baseTarget = client.target("http://localhost:9080/trs-api/trs-service").path("workers");
 	}
-	
+
 	public Worker getUser() {
-		WebTarget target = this.basicTarget.path(Integer.toString(1));
+		WebTarget target = this.baseTarget.path(Integer.toString(1));
 		Worker worker = null;
 		try {
 			worker = target.request().get(Worker.class);
@@ -34,10 +34,10 @@ public class WorkerService {
 		}
 		return worker;
 	}
-	
+
 	public Worker login(Login login) throws Exception {
 		Worker worker = null;
-		WebTarget target = this.basicTarget.path("login");
+		WebTarget target = this.baseTarget.path("login");
 		Response res = target.request().post(Entity.entity(login, MediaType.APPLICATION_JSON));
 		if (Integer.toString(res.getStatus()).startsWith("2")) {
 			worker = res.readEntity(Worker.class);

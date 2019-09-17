@@ -9,7 +9,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -21,15 +20,15 @@ import be.abis.casebce.exception.ApiError;
 import be.abis.casebce.model.Activity;
 
 public class ActivityService {
-	private WebTarget basicTarget;
+	private WebTarget baseTarget;
 
 	public ActivityService() {
 		Client client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
-		this.basicTarget = client.target("http://localhost:9080/trs-api/trs-service").path("activities");
+		this.baseTarget = client.target("http://localhost:9080/trs-api/trs-service").path("activities");
 	}
 
 	public void addActivity(Activity activity) {
-		WebTarget target = this.basicTarget.path("add");
+		WebTarget target = this.baseTarget.path("add");
 		Response responsePost = target.request().post(Entity.entity(activity, MediaType.APPLICATION_JSON));
 		if (Integer.toString(responsePost.getStatus()).startsWith("2")) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -42,7 +41,7 @@ public class ActivityService {
 	}
 
 	public List<Activity> getActivities(int performerId) {
-		WebTarget target = this.basicTarget.queryParam("worker-id", performerId);
+		WebTarget target = this.baseTarget.queryParam("worker-id", performerId);
 		List<Activity> activities = new ArrayList<Activity>();
 		try {
 			activities = target.request().get(new GenericType<List<Activity>>() {
@@ -56,7 +55,7 @@ public class ActivityService {
 	}
 
 	public Activity getActivity(int activityId) {
-		WebTarget target = this.basicTarget.path(Integer.toString(activityId));
+		WebTarget target = this.baseTarget.path(Integer.toString(activityId));
 		Activity activity = null;
 		try {
 			activity = target.request().get(Activity.class);
@@ -69,7 +68,7 @@ public class ActivityService {
 	}
 
 	public void updateActivity(Activity activity) throws Exception {
-		WebTarget target = this.basicTarget.path(Integer.toString(activity.getActivityId()));
+		WebTarget target = this.baseTarget.path(Integer.toString(activity.getActivityId()));
 		Response res = target.request().put(Entity.entity(activity, MediaType.APPLICATION_JSON));
 		if (Integer.toString(res.getStatus()).startsWith("4")) {
 			ApiError err = res.readEntity(ApiError.class);

@@ -11,13 +11,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Named
 @SessionScoped
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "type")
-@JsonSubTypes({
-    @Type(value = ExternalWorker.class, name = "ExternalWorker")
-    })
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({ @Type(value = ExternalWorker.class, name = "ExternalWorker") })
 public class Worker implements Serializable {
 
 	private int id;
@@ -25,12 +20,6 @@ public class Worker implements Serializable {
 	private String firstName;
 	private String lastName;
 
-	/*
-	 * 
-	 * private String bankAcount;
-	 * 
-	 * @Inject private Address address; private String password;
-	 */
 	public int getId() {
 		return id;
 	}

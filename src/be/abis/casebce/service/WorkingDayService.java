@@ -45,7 +45,7 @@ public class WorkingDayService {
 		}
 		return workingDay;
 	}
-	
+
 	public WorkingDay closeWorkingDay(WorkingDay workingDay) {
 		WebTarget target = this.baseTarget.path("close");
 		Response res = target.request().put(Entity.entity(workingDay, MediaType.APPLICATION_JSON));

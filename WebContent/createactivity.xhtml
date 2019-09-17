@@ -30,8 +30,7 @@
 		<p:toolbar>
 			<f:facet name="left">
 				<p:commandButton type="submit" value="Activity" immediate="true"
-					icon="pi pi-folder-open" ajax="false"
-					action="activitydisplay" />
+					icon="pi pi-folder-open" ajax="false" action="activitydisplay" />
 				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
 					<pe:timer timeout="80000"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"

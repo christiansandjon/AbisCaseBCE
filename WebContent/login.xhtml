@@ -14,20 +14,20 @@
 <h:body>
 	<h:form id="loginForm">
 		<p:fieldset style="margin-bottom:20px">
-		<p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
-			<h:outputText value="#{msgs['loginLabel']} :" />
-			<p:inputText id="login" value="#{loginController.login.login}"
-				required="true" requiredMessage="Ce champs ne doit pas etre vide" />
-			<p:message for="login" style=" color:red" />
+			<p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
+				<h:outputText value="#{msgs['loginLabel']} :" />
+				<p:inputText id="login" value="#{loginController.login.login}"
+					required="true" requiredMessage="Ce champs ne doit pas etre vide" />
+				<p:message for="login" style=" color:red" />
 
-			<h:outputLabel value="#{msgs['passwordLabel']} :" required="true" />
-			<p:password id="pwd" value="#{loginController.login.password}"
-				required="true" requiredMessage="Ce champs ne doit pas etre vide" />
-			<p:message for="pwd" style="color:red" />
+				<h:outputLabel value="#{msgs['passwordLabel']} :" required="true" />
+				<p:password id="pwd" value="#{loginController.login.password}"
+					required="true" requiredMessage="Ce champs ne doit pas etre vide" />
+				<p:message for="pwd" style="color:red" />
 
-			<p:commandButton value="#{msgs['loginLabel']}" action="#{loginController.login}"
-				ajax="false" />
-		</p:panelGrid>
+				<p:commandButton value="#{msgs['loginLabel']}"
+					action="#{loginController.login}" ajax="false" />
+			</p:panelGrid>
 		</p:fieldset>
 	</h:form>
 	<p:messages globalOnly="true" layout="table" errorStyle="color:red"

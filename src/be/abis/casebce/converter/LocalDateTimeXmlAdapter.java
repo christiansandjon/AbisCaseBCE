@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class LocalDateTimeXmlAdapter extends XmlAdapter<String,LocalDateTime> {
+public class LocalDateTimeXmlAdapter extends XmlAdapter<String, LocalDateTime> {
 
 	@Override
 	public LocalDateTime unmarshal(String v) throws Exception {

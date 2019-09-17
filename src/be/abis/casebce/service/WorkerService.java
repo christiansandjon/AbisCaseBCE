@@ -22,19 +22,6 @@ public class WorkerService {
 		this.baseTarget = client.target("http://localhost:9080/trs-api/trs-service").path("workers");
 	}
 
-	public Worker getUser() {
-		WebTarget target = this.baseTarget.path(Integer.toString(1));
-		Worker worker = null;
-		try {
-			worker = target.request().get(Worker.class);
-		} catch (WebApplicationException e) {
-			Response res = e.getResponse();
-			ApiError err = res.readEntity(ApiError.class);
-			System.out.println(err.getTitle() + ": " + err.getDescription());
-		}
-		return worker;
-	}
-
 	public Worker login(Login login) throws Exception {
 		Worker worker = null;
 		WebTarget target = this.baseTarget.path("login");

@@ -32,15 +32,15 @@
 		<p:toolbar>
 			<f:facet name="left" rendered="#{workingDayController.isAvailable()}">
 				<p:commandButton type="submit" value="Activity" immediate="true"
-					icon="pi pi-folder-open" ajax="false" action="activitydisplay" />
+					icon="pi pi-folder-open" ajax="false" action="activitydisplay" style="font-size:25px" />
 				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
-					<pe:timer timeout="80000"
+					<pe:timer style="font-size:25px" timeout="80000"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
 						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
-					<p:commandButton value="Close Working Day" ajax="false"
+					<p:commandButton style="font-size:25px" value="Close Working Day" ajax="false"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
 						action="#{workingDayController.closeWorkingDay}" />
-					<p:commandButton value="Start Working Day" ajax="false"
+					<p:commandButton style="font-size:25px" value="Start Working Day" ajax="false"
 						rendered="#{workingDayController.currentWorkingDay.start == null}"
 						action="#{workingDayController.startWorkingDay}" />
 				</h:panelGroup>
@@ -48,8 +48,9 @@
 		</p:toolbar>
 		<br />
 
-		<h1>ACTIVITIES</h1>
-		<p:commandButton style="margin : 3px" value="#{msgs['buttonNew']}"
+		<h1 style="margin: 5px, 0; font-family:arial,helvetica,'Times New Roman'; font-size:50px ;font-weight:bold; text-align: center;"><h:outputText value="#{msgs['activityTitleLabel']} " /></h1>
+
+		<p:commandButton style="margin-bottom : 3px; font-size:25px" value="#{msgs['buttonNew']}"
 			action="#{activityController.generateNewActivityForm}" ajax="false">
 		</p:commandButton>
 		<p:dataView var="a" value="#{activityController.displayedActivities}">
@@ -79,6 +80,7 @@
 						action="#{activityController.displayActivityInfo(a)}" ajax="false">
 					</p:commandButton>
 				</h:panelGrid>
+				<hr></hr>
 			</p:dataViewListItem>
 		</p:dataView>
 	</h:form>

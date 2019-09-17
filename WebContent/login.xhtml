@@ -13,26 +13,31 @@
 
 <h:body>
 
-	<h1 style="margin: 50px, 0; font-family:arial,helvetica,'Times New Roman'; font-size:50px ;font-weight:bold; text-align: center;"><h:outputText value="#{msgs['welcome']} " /><span style="color:#4d88ff; ">ABIS</span></h1>
+	<h1
+		style="margin: 50px, 0; font-family: arial, helvetica, 'Times New Roman'; font-size: 50px; font-weight: bold; text-align: center;">
+		<h:outputText value="#{msgs['welcome']} " />
+		<span style="color: #4d88ff;">ABIS</span>
+	</h1>
 	<h:form id="loginForm" style="margin: 0 auto; width:1000px;">
-		<p:panel id="basic" header="#{msgs['loginTitleLabel']}" style="margin-bottom:50px; font-size:30px ; text-align: center;">
-		<p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
-			<h:outputText value="#{msgs['loginLabel']}" />
-			<p:inputText id="login" value="#{loginController.login.login}"
-				required="true" requiredMessage="#{msgs['emptyField']}" />
-			<p:message for="login" style=" color:red" />
+		<p:panel id="basic" header="#{msgs['loginTitleLabel']}"
+			style="margin-bottom:50px; font-size:30px ; text-align: center;">
+			<p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
+				<h:outputText value="#{msgs['loginLabel']}" />
+				<p:inputText id="login" value="#{loginController.login.login}"
+					required="true" requiredMessage="#{msgs['emptyField']}" />
+				<p:message for="login" style=" color:red" />
 
-			<h:outputLabel value="#{msgs['passwordLabel']}" required="true" />
-			<p:password id="pwd" value="#{loginController.login.password}"
-				required="true" requiredMessage="#{msgs['emptyField']}" />
-			<p:message for="pwd" style="color:red" />
+				<h:outputLabel value="#{msgs['passwordLabel']}" required="true" />
+				<p:password id="pwd" value="#{loginController.login.password}"
+					required="true" requiredMessage="#{msgs['emptyField']}" />
+				<p:message for="pwd" style="color:red" />
 
-			<p:commandButton value="#{msgs['buttonLogin']}" action="#{loginController.login}"
-				ajax="false" />
-		</p:panelGrid>
+				<p:commandButton value="#{msgs['buttonLogin']}"
+					action="#{loginController.login}" ajax="false" />
+			</p:panelGrid>
 		</p:panel>
 	</h:form>
-	<p:messages globalOnly="true" layout="table" errorStyle="color:red"
-		infoStyle="color:green" />
+	<p:messages globalOnly="true" showDetail="true" layout="table"
+		errorStyle="color:red" infoStyle="color:green" />
 </h:body>
 </html>

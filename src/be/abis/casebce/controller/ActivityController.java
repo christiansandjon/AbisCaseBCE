@@ -49,7 +49,12 @@ public class ActivityController implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
 		}
-		this.potentialProjects = this.projectService.getProjects();
+		try {
+			this.potentialProjects = this.projectService.getProjects();
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+		}
 	}
 
 	public Activity getCurrentActivity() {
@@ -91,7 +96,8 @@ public class ActivityController implements Serializable {
 		try {
 			activityService.addActivity(currentActivity);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
 			return "createactivity";
 		}
 		return "activityinfo?faces-redirected=true";
@@ -104,7 +110,9 @@ public class ActivityController implements Serializable {
 		try {
 			this.activityService.updateActivity(this.currentActivity);
 		} catch (Exception e) {
-			return "activityedit?faces-redirected=true";
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+			return "activityedit";
 		}
 		return "activityinfo?faces-redirected=true";
 	}
@@ -115,6 +123,7 @@ public class ActivityController implements Serializable {
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+			return "activityedit";
 		}
 		return "activityinfo?faces-redirected=true";
 	}
@@ -132,6 +141,7 @@ public class ActivityController implements Serializable {
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+			return "activitydisplay";
 		}
 		return "activitydisplay?faces-redirect=true";
 	}

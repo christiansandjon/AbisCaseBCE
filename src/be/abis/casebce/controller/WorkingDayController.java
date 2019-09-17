@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.el.ValueExpression;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -35,7 +36,12 @@ public class WorkingDayController implements Serializable {
 		LoginController controller = (LoginController) vex.getValue(FacesContext.getCurrentInstance().getELContext());
 		this.worker = controller.getWorker();
 		if (this.isAvailable()) {
-			this.currentWorkingDay = this.workingDayService.getCurrentWorkingDay(this.worker.getId());
+			try {
+				this.currentWorkingDay = this.workingDayService.getCurrentWorkingDay(this.worker.getId());
+			} catch (Exception e) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+			}
 		}
 	}
 
@@ -60,11 +66,21 @@ public class WorkingDayController implements Serializable {
 	}
 
 	public void startWorkingDay() {
-		this.currentWorkingDay = this.workingDayService.startWorkingDay(this.currentWorkingDay);
+		try {
+			this.currentWorkingDay = this.workingDayService.startWorkingDay(this.currentWorkingDay);
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+		}
 	}
 
 	public void closeWorkingDay() {
-		this.currentWorkingDay = this.workingDayService.closeWorkingDay(this.currentWorkingDay);
+		try {
+			this.currentWorkingDay = this.workingDayService.closeWorkingDay(this.currentWorkingDay);
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+		}
 	}
 
 }

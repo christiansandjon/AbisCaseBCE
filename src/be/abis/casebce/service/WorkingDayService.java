@@ -21,7 +21,7 @@ public class WorkingDayService {
 		this.baseTarget = client.target("http://localhost:9080/trs-api/trs-service").path("working-days");
 	}
 
-	public WorkingDay getCurrentWorkingDay(int workerId) {
+	public WorkingDay getCurrentWorkingDay(int workerId) throws Exception {
 		WebTarget target = this.baseTarget.path("current").path(Integer.toString(workerId));
 		WorkingDay workingDay = null;
 		try {
@@ -29,31 +29,31 @@ public class WorkingDayService {
 		} catch (WebApplicationException e) {
 			Response res = e.getResponse();
 			ApiError err = res.readEntity(ApiError.class);
-			System.out.println(err.getTitle() + ": " + err.getDescription());
+			throw new Exception(err.getTitle() + ": " + err.getDescription());
 		}
 		return workingDay;
 	}
 
-	public WorkingDay startWorkingDay(WorkingDay workingDay) {
+	public WorkingDay startWorkingDay(WorkingDay workingDay) throws Exception {
 		WebTarget target = this.baseTarget.path("start");
 		Response res = target.request().put(Entity.entity(workingDay, MediaType.APPLICATION_JSON));
 		if (Integer.toString(res.getStatus()).startsWith("2")) {
 			workingDay = res.readEntity(WorkingDay.class);
 		} else if (Integer.toString(res.getStatus()).startsWith("4")) {
 			ApiError err = res.readEntity(ApiError.class);
-			System.out.println(err.getTitle() + ": " + err.getDescription());
+			throw new Exception(err.getTitle() + ": " + err.getDescription());
 		}
 		return workingDay;
 	}
 
-	public WorkingDay closeWorkingDay(WorkingDay workingDay) {
+	public WorkingDay closeWorkingDay(WorkingDay workingDay) throws Exception {
 		WebTarget target = this.baseTarget.path("close");
 		Response res = target.request().put(Entity.entity(workingDay, MediaType.APPLICATION_JSON));
 		if (Integer.toString(res.getStatus()).startsWith("2")) {
 			workingDay = res.readEntity(WorkingDay.class);
 		} else if (Integer.toString(res.getStatus()).startsWith("4")) {
 			ApiError err = res.readEntity(ApiError.class);
-			System.out.println(err.getTitle() + ": " + err.getDescription());
+			throw new Exception(err.getTitle() + ": " + err.getDescription());
 		}
 		return workingDay;
 	}

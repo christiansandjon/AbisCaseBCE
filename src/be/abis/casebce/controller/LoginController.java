@@ -3,6 +3,7 @@ package be.abis.casebce.controller;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -45,6 +46,7 @@ public class LoginController implements Serializable {
 	}
 	
 	public String logout() {
-		return "";
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "login?faces-redirect=true";
 	}
 }

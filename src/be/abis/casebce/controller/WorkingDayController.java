@@ -3,7 +3,9 @@ package be.abis.casebce.controller;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.el.ValueExpression;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -27,7 +29,11 @@ public class WorkingDayController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		this.worker = this.workerService.getUser();
+		ValueExpression vex = FacesContext.getCurrentInstance().getApplication().getExpressionFactory()
+				.createValueExpression(FacesContext.getCurrentInstance().getELContext(), "#{loginController}",
+						LoginController.class);
+		LoginController controller = (LoginController) vex.getValue(FacesContext.getCurrentInstance().getELContext());
+		this.worker = controller.getWorker();
 		if (this.isAvailable()) {
 			this.currentWorkingDay = this.workingDayService.getCurrentWorkingDay(this.worker.getId());
 		}

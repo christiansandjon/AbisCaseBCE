@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.el.ValueExpression;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -35,10 +37,11 @@ public class ActivityController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		// performer = this.workerSession.getUser();
-		this.performer = this.workerService.getUser();
-		// this.displayedActivities =
-		// this.activitySession.getActivities(performer.getId());
+		ValueExpression vex = FacesContext.getCurrentInstance().getApplication().getExpressionFactory()
+				.createValueExpression(FacesContext.getCurrentInstance().getELContext(), "#{loginController}",
+						LoginController.class);
+		LoginController controller = (LoginController) vex.getValue(FacesContext.getCurrentInstance().getELContext());
+		this.performer = controller.getWorker();
 		this.displayedActivities = this.activityService.getActivities(this.performer.getId());
 		this.potentialProjects = this.projectService.getProjects();
 	}

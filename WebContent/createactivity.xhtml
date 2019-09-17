@@ -8,7 +8,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>New title</title>
+	<title>New Activity</title>
 </h:head>
 <h:body>
 	<script>
@@ -29,64 +29,75 @@
 	<h:form>
 		<p:toolbar>
 			<f:facet name="left">
-				<p:commandButton type="submit" value="Activity" immediate="true"
+				<p:commandButton style="font-size:20px" type="submit"
+					value="#{msgs['buttonActivity']}" immediate="true"
 					icon="pi pi-folder-open" ajax="false"
 					action="#{activityController.displayActivityList}" />
 				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
-					<pe:timer timeout="80000"
+					<pe:timer style="font-size:20px" timeout="80000"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
 						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
-					<p:commandButton value="Close Working Day" ajax="false"
+					<p:commandButton style="font-size:20px" value="Close Working Day"
+						ajax="false"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
 						action="#{workingDayController.closeWorkingDay}" />
-					<p:commandButton value="Start Working Day" ajax="false"
+					<p:commandButton style="font-size:20px" value="Start Working Day"
+						ajax="false"
 						rendered="#{workingDayController.currentWorkingDay.start == null}"
 						action="#{workingDayController.startWorkingDay}" />
 				</h:panelGroup>
-				<p:commandButton type="submit" value="Logout" immediate="true"
+				<p:commandButton style="font-size:20px" type="submit"
+					value="#{msgs['buttonLogout']}" immediate="true"
 					icon="pi pi-folder-open" ajax="false"
 					action="#{loginController.logout}" />
 			</f:facet>
 		</p:toolbar>
 		<br />
 	</h:form>
-	<h2>Create Activity</h2>
-	<h:form>
-		<h:panelGrid columns="2" cellpadding="5">
-			<p:outputLabel for="startdate" value="#{msgs['startTimeLabelText']}" />
-			<p:datePicker id="startdate"
-				value="#{activityController.currentActivity.start}" showTime="true"
-				stepMinute="15" pattern="dd-MM-yyyy" hourFormat="24">
-				<f:converter converterId="dateTimeConverter" />
-			</p:datePicker>
-			<p:outputLabel for="enddate" value="#{msgs['endTimeLabelText']}" />
-			<p:datePicker id="enddate"
-				value="#{activityController.currentActivity.end}" timeOnly="true"
-				stepMinute="15" pattern="kk:mm">
-				<f:converter converterId="hourConverter" />
-			</p:datePicker>
-			<p:outputLabel for="description"
-				value="#{msgs['descriptionLabelText']} " />
-			<p:inputTextarea id="description" rows="6" cols="33"
-				value="#{activityController.currentActivity.description}" />
 
-			<p:outputLabel for="project" value="#{msgs['projectLabelText']} " />
-			<p:selectOneMenu id="project"
-				value="#{activityController.currentActivity.project}"
-				converter="activityProjectConverter">
-				<f:selectItems value="#{activityController.potentialProjects}"
-					var="potentialProject" itemLabel="#{potentialProject.name}"
-					itemValue="#{potentialProject}" />
-			</p:selectOneMenu>
-			<f:facet name="footer">
-				<p:commandButton id="cancel" value="#{msgs['cancelButtonText']}"
-					style="margin-right:20px;" ajax="false" immediate="true"
-					action="#{activityController.displayActivityList}" />
-				<p:commandButton id="register" value="#{msgs['registerButtonText']}"
-					style="margin-right:20px;" ajax="false"
-					action="#{activityController.createActivitiy}" />
-			</f:facet>
-		</h:panelGrid>
+	<h1
+		style="margin: 5px, 0; font-family: arial, helvetica, 'Times New Roman'; font-size: 50px; font-weight: bold; text-align: center;">
+		<h:outputText value="#{msgs['newActivityTitleLabel']} " />
+	</h1>
+	<h:form id="loginForm" style="margin: 0 auto; width:1200px;">
+		<p:panel id="basic"
+			style="margin-bottom:50px; font-size:30px ; text-align: center;">
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:outputLabel for="startdate" value="#{msgs['startTimeLabelText']}" />
+				<p:datePicker id="startdate"
+					value="#{activityController.currentActivity.start}" showTime="true"
+					stepMinute="15" pattern="dd-MM-yyyy" hourFormat="24">
+					<f:converter converterId="dateTimeConverter" />
+				</p:datePicker>
+				<p:outputLabel for="enddate" value="#{msgs['endTimeLabelText']}" />
+				<p:datePicker id="enddate"
+					value="#{activityController.currentActivity.end}" timeOnly="true"
+					stepMinute="15" pattern="kk:mm">
+					<f:converter converterId="hourConverter" />
+				</p:datePicker>
+				<p:outputLabel for="description"
+					value="#{msgs['descriptionLabelText']} " />
+				<p:inputTextarea id="description" rows="6" cols="33"
+					value="#{activityController.currentActivity.description}" />
+
+				<p:outputLabel for="project" value="#{msgs['projectLabelText']} " />
+				<p:selectOneMenu id="project"
+					value="#{activityController.currentActivity.project}"
+					converter="activityProjectConverter">
+					<f:selectItems value="#{activityController.potentialProjects}"
+						var="potentialProject" itemLabel="#{potentialProject.name}"
+						itemValue="#{potentialProject}" />
+				</p:selectOneMenu>
+				<f:facet name="footer">
+						<p:commandButton style="margin: 20px;" id="cancel" value="#{msgs['cancelButtonText']}"
+							ajax="false" immediate="true"
+							action="#{activityController.displayActivityList}" />
+						<p:commandButton style="margin: 20px;" id="register"
+							value="#{msgs['registerButtonText']}" ajax="false"
+							action="#{activityController.createActivitiy}" />
+				</f:facet>
+			</h:panelGrid>
+		</p:panel>
 	</h:form>
 </h:body>
 </html>

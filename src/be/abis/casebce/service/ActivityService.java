@@ -41,7 +41,7 @@ public class ActivityService {
 
 	}
 
-	public List<Activity> getActivities(int performerId) {
+	public List<Activity> getActivities(int performerId) throws Exception {
 		WebTarget target = this.baseTarget.queryParam("worker-id", performerId);
 		List<Activity> activities = new ArrayList<Activity>();
 		try {
@@ -50,12 +50,12 @@ public class ActivityService {
 		} catch (WebApplicationException e) {
 			Response res = e.getResponse();
 			ApiError err = res.readEntity(ApiError.class);
-			System.out.println(err.getTitle() + ": " + err.getDescription());
+			throw new Exception(err.getTitle() + ": " + err.getDescription());
 		}
 		return activities;
 	}
 
-	public Activity getActivity(int activityId) {
+	public Activity getActivity(int activityId) throws Exception {
 		WebTarget target = this.baseTarget.path(Integer.toString(activityId));
 		Activity activity = null;
 		try {
@@ -63,7 +63,7 @@ public class ActivityService {
 		} catch (WebApplicationException e) {
 			Response res = e.getResponse();
 			ApiError err = res.readEntity(ApiError.class);
-			System.out.println(err.getTitle() + ": " + err.getDescription());
+			throw new Exception(err.getTitle() + ": " + err.getDescription());
 		}
 		return activity;
 	}

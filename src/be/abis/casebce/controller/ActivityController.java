@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.el.ValueExpression;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -42,7 +43,12 @@ public class ActivityController implements Serializable {
 						LoginController.class);
 		LoginController controller = (LoginController) vex.getValue(FacesContext.getCurrentInstance().getELContext());
 		this.performer = controller.getWorker();
-		this.displayedActivities = this.activityService.getActivities(this.performer.getId());
+		try {
+			this.displayedActivities = this.activityService.getActivities(this.performer.getId());
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+		}
 		this.potentialProjects = this.projectService.getProjects();
 	}
 
@@ -104,7 +110,12 @@ public class ActivityController implements Serializable {
 	}
 
 	public String cancelEdition() {
-		this.setCurrentActivity(activityService.getActivity(this.currentActivity.getActivityId()));
+		try {
+			this.setCurrentActivity(activityService.getActivity(this.currentActivity.getActivityId()));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+		}
 		return "activityinfo?faces-redirected=true";
 	}
 
@@ -116,7 +127,12 @@ public class ActivityController implements Serializable {
 	}
 
 	public String displayActivityList() {
-		this.displayedActivities = this.activityService.getActivities(this.performer.getId());
+		try {
+			this.displayedActivities = this.activityService.getActivities(this.performer.getId());
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+		}
 		return "activitydisplay?faces-redirect=true";
 	}
 

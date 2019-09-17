@@ -27,7 +27,7 @@ public class ActivityService {
 		this.baseTarget = client.target("http://localhost:9080/trs-api/trs-service").path("activities");
 	}
 
-	public void addActivity(Activity activity) {
+	public void addActivity(Activity activity) throws Exception {
 		WebTarget target = this.baseTarget.path("add");
 		Response responsePost = target.request().post(Entity.entity(activity, MediaType.APPLICATION_JSON));
 		if (Integer.toString(responsePost.getStatus()).startsWith("2")) {
@@ -35,7 +35,8 @@ public class ActivityService {
 			FacesMessage facesMessage = new FacesMessage("Activity has been added");
 			facesContext.addMessage(null, facesMessage);
 		} else if (Integer.toString(responsePost.getStatus()).startsWith("4")) {
-			throw new WebApplicationException("Activity exist already");
+			ApiError err = responsePost.readEntity(ApiError.class);
+			throw new Exception(err.getTitle() + ": " + err.getDescription());
 		}
 
 	}

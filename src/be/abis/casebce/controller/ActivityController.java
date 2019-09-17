@@ -82,8 +82,12 @@ public class ActivityController implements Serializable {
 		this.currentActivity.setEnd(LocalDateTime.of(this.currentActivity.getStart().getYear(),
 				this.currentActivity.getStart().getMonth(), this.currentActivity.getStart().getDayOfMonth(),
 				this.currentActivity.getEnd().getHour(), this.currentActivity.getEnd().getMinute()));
-
-		activityService.addActivity(currentActivity);
+		try {
+			activityService.addActivity(currentActivity);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "createactivity";
+		}
 		return "activityinfo?faces-redirected=true";
 	}
 

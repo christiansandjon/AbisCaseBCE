@@ -13,6 +13,7 @@
 	<title>Activities</title>
 </h:head>
 <h:body>
+	<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
 	<script>
 		function displayElapsedTime(longEnteredTime) {
 			var now = new Date();

@@ -11,6 +11,7 @@
 	<title>New Activity</title>
 </h:head>
 <h:body>
+	<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
 	<script>
 		function displayElapsedTime(longEnteredTime) {
 			var now = new Date();
@@ -89,12 +90,12 @@
 						itemValue="#{potentialProject}" />
 				</p:selectOneMenu>
 				<f:facet name="footer">
-						<p:commandButton style="margin: 20px;" id="cancel" value="#{msgs['cancelButtonText']}"
-							ajax="false" immediate="true"
-							action="#{activityController.displayActivityList}" />
-						<p:commandButton style="margin: 20px;" id="register"
-							value="#{msgs['registerButtonText']}" ajax="false"
-							action="#{activityController.createActivitiy}" />
+					<p:commandButton style="margin: 20px;" id="cancel"
+						value="#{msgs['cancelButtonText']}" ajax="false" immediate="true"
+						action="#{activityController.displayActivityList}" />
+					<p:commandButton style="margin: 20px;" id="register"
+						value="#{msgs['registerButtonText']}" ajax="false"
+						action="#{activityController.createActivitiy}" />
 				</f:facet>
 			</h:panelGrid>
 		</p:panel>

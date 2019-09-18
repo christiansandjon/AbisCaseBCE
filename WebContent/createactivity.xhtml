@@ -12,6 +12,7 @@
 </h:head>
 <h:body>
 	<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
+	<f:event type="preRenderView" listener="#{activityController.retrievePotentialProjects}" />
 	<script>
 		function displayElapsedTime(longEnteredTime) {
 			var now = new Date();
@@ -33,7 +34,7 @@
 				<p:commandButton style="font-size:20px" type="submit"
 					value="#{msgs['buttonActivity']}" immediate="true"
 					icon="pi pi-folder-open" ajax="false"
-					action="#{activityController.displayActivityList}" />
+					action="activitydisplay?faces-redirect=true" />
 				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
 					<pe:timer style="font-size:20px" timeout="80000"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
@@ -92,7 +93,7 @@
 				<f:facet name="footer">
 					<p:commandButton style="margin: 20px;" id="cancel"
 						value="#{msgs['cancelButtonText']}" ajax="false" immediate="true"
-						action="#{activityController.displayActivityList}" />
+						action="activitydisplay?faces-redirect=true" />
 					<p:commandButton style="margin: 20px;" id="register"
 						value="#{msgs['registerButtonText']}" ajax="false"
 						action="#{activityController.createActivitiy}" />

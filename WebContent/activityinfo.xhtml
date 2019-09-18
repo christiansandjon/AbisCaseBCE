@@ -32,7 +32,7 @@
 			<f:facet name="left">
 				<p:commandButton type="submit" value="Activity" immediate="true"
 					icon="pi pi-folder-open" ajax="false"
-					action="#{activityController.displayActivityList}" />
+					action="activitydisplay?faces-redirect=true" />
 				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
 					<pe:timer timeout="80000"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
@@ -72,7 +72,7 @@
 	</p:panel>
 	<h:form>
 		<p:commandButton value="#{msgs.returnButtonText}"
-			action="#{activityController.displayActivityList}" />
+			action="activitydisplay?faces-redirect=true" />
 		<p:commandButton value="#{msgs.editButtonText}"
 			action="activityedit?faces-redirect=true" />
 	</h:form>

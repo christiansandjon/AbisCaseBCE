@@ -14,7 +14,6 @@ import javax.inject.Named;
 import be.abis.casebce.model.ExternalWorker;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.model.WorkingDay;
-import be.abis.casebce.service.WorkerService;
 import be.abis.casebce.service.WorkingDayService;
 
 @Named
@@ -26,19 +25,13 @@ public class WorkingDayController implements Serializable {
 	@Inject
 	private WorkingDay currentWorkingDay;
 
-	private WorkerService workerService = new WorkerService();
 	private WorkingDayService workingDayService = new WorkingDayService();
 
 	@PostConstruct
 	public void init() {
-		ValueExpression vex = FacesContext.getCurrentInstance().getApplication().getExpressionFactory()
-				.createValueExpression(FacesContext.getCurrentInstance().getELContext(), "#{loginController}",
-						LoginController.class);
-		LoginController controller = (LoginController) vex.getValue(FacesContext.getCurrentInstance().getELContext());
-		this.worker = controller.getWorker();
 		if (this.isAvailable()) {
 			try {
-				this.currentWorkingDay = this.workingDayService.getCurrentWorkingDay(this.worker.getId());
+				this.currentWorkingDay = this.workingDayService.getCurrentWorkingDay(this.getWorker().getId());
 			} catch (Exception e) {
 				ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
 						FacesContext.getCurrentInstance().getViewRoot().getLocale());
@@ -49,6 +42,14 @@ public class WorkingDayController implements Serializable {
 	}
 
 	public Worker getWorker() {
+		if (this.worker.getId() == 0) {
+			ValueExpression vex = FacesContext.getCurrentInstance().getApplication().getExpressionFactory()
+					.createValueExpression(FacesContext.getCurrentInstance().getELContext(), "#{loginController}",
+							LoginController.class);
+			LoginController controller = (LoginController) vex
+					.getValue(FacesContext.getCurrentInstance().getELContext());
+			this.worker = controller.getWorker();
+		}
 		return worker;
 	}
 

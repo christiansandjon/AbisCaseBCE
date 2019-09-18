@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.annotation.PostConstruct;
 import javax.el.ValueExpression;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -18,7 +17,6 @@ import be.abis.casebce.model.Project;
 import be.abis.casebce.model.Worker;
 import be.abis.casebce.service.ActivityService;
 import be.abis.casebce.service.ProjectService;
-import be.abis.casebce.service.WorkerService;
 
 @Named
 @SessionScoped
@@ -29,38 +27,12 @@ public class ActivityController implements Serializable {
 	private Activity currentActivity;
 	@Inject
 	@Named("worker")
-	Worker performer;
+	private Worker performer;
 	private List<Activity> displayedActivities;
 	private List<Project> potentialProjects;
 
 	private ActivityService activityService = new ActivityService();
-	private WorkerService workerService = new WorkerService();
 	private ProjectService projectService = new ProjectService();
-
-	@PostConstruct
-	public void init() {
-		ValueExpression vex = FacesContext.getCurrentInstance().getApplication().getExpressionFactory()
-				.createValueExpression(FacesContext.getCurrentInstance().getELContext(), "#{loginController}",
-						LoginController.class);
-		LoginController controller = (LoginController) vex.getValue(FacesContext.getCurrentInstance().getELContext());
-		this.performer = controller.getWorker();
-		try {
-			this.displayedActivities = this.activityService.getActivities(this.performer.getId());
-		} catch (Exception e) {
-			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
-					FacesContext.getCurrentInstance().getViewRoot().getLocale());
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
-		}
-		try {
-			this.potentialProjects = this.projectService.getProjects();
-		} catch (Exception e) {
-			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
-					FacesContext.getCurrentInstance().getViewRoot().getLocale());
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
-		}
-	}
 
 	public Activity getCurrentActivity() {
 		return currentActivity;
@@ -71,6 +43,14 @@ public class ActivityController implements Serializable {
 	}
 
 	public Worker getPerformer() {
+		if (this.performer.getId() == 0) {
+			ValueExpression vex = FacesContext.getCurrentInstance().getApplication().getExpressionFactory()
+					.createValueExpression(FacesContext.getCurrentInstance().getELContext(), "#{loginController}",
+							LoginController.class);
+			LoginController controller = (LoginController) vex
+					.getValue(FacesContext.getCurrentInstance().getELContext());
+			this.performer = controller.getWorker();
+		}
 		return performer;
 	}
 
@@ -146,15 +126,13 @@ public class ActivityController implements Serializable {
 
 	}
 
-	public String displayActivityList() {
+	public void displayActivityList() {
 		try {
-			this.displayedActivities = this.activityService.getActivities(this.performer.getId());
+			this.displayedActivities = this.activityService.getActivities(this.getPerformer().getId());
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
-			return "activitydisplay";
 		}
-		return "activitydisplay?faces-redirect=true";
 	}
 
 	public String generateNewActivityForm() {
@@ -162,8 +140,17 @@ public class ActivityController implements Serializable {
 		this.currentActivity = new Activity();
 		this.currentActivity.setPerformer(this.getPerformer());
 		this.currentActivity.setProject(this.potentialProjects.get(0));
-
 		return "createactivity?faces-redirect=true";
 	}
 
+	public void retrievePotentialProjects() {
+		try {
+			this.potentialProjects = this.projectService.getProjects();
+		} catch (Exception e) {
+			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+					FacesContext.getCurrentInstance().getViewRoot().getLocale());
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
+		}
+	}
 }

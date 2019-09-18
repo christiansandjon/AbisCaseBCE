@@ -67,7 +67,7 @@
 				<p:outputLabel for="startdate" value="#{msgs['startTimeLabelText']}" />
 				<p:datePicker id="startdate"
 					value="#{activityController.currentActivity.start}" showTime="true"
-					stepMinute="15" pattern="dd-MM-yyyy" hourFormat="24"
+					pattern="dd-MM-yyyy" hourFormat="24"
 					required="true" requiredMessage="#{msgs['emptyField']}">
 					<f:converter converterId="dateTimeConverter" />
 				</p:datePicker>
@@ -76,7 +76,7 @@
 				<p:outputLabel for="enddate" value="#{msgs['endTimeLabelText']}" />
 				<p:datePicker id="enddate"
 					value="#{activityController.currentActivity.end}" timeOnly="true"
-					stepMinute="15" pattern="kk:mm" required="true"
+					pattern="kk:mm" required="true"
 					requiredMessage="#{msgs['emptyField']}">
 					<f:converter converterId="hourConverter" />
 				</p:datePicker>

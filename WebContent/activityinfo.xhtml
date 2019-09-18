@@ -53,11 +53,14 @@
 	</h:form>
 
 	<p:panel id="basic" header="#{msgs.activityInfoTitle}"
-		style="margin-bottom:50px; font-size:30px ; text-align: center;">
+		style="margin-bottom:50px; margin: 0 auto; font-size:40px ; text-align: center; width: 1000px;">
 	
-		<p:outputLabel value="#{msgs.projectLabelText}" /> #{activityController.currentActivity.project.name} (#{activityController.currentActivity.project.client.name})<br />
-		#{activityController.currentActivity.project.description} <br />
+		<h:outputText value="#{activityController.currentActivity.project.name}" />
 		<br />
+		<h:outputText value= "#{activityController.currentActivity.project.client.name}" />
+		<br />	<br />
+		<h:outputText value= "#{activityController.currentActivity.project.description}" /> 
+		<br />	<br />
 		<h:outputText value="#{activityController.currentActivity.start}">
 			<f:converter converterId="dateConverter" />
 		</h:outputText>
@@ -65,17 +68,16 @@
 		<h:outputText value="#{activityController.currentActivity.start}">
 			<f:converter converterId="hourConverter" />
 		</h:outputText>
-		-
 		<h:outputText value="#{activityController.currentActivity.end}">
 			<f:converter converterId="hourConverter" />
 		</h:outputText>
 		<br />
-		<p:outputLabel value="#{msgs.descriptionLabelText}" /> #{activityController.currentActivity.description}
+		<p:outputLabel value="#{activityController.currentActivity.description}" />
 	</p:panel>
-	<h:form>
-		<p:commandButton value="#{msgs.returnButtonText}"
+	<h:form style="margin: 0 auto; width:600px; font-size:40px; text-align: center;">
+		<p:commandButton value="#{msgs.returnButtonText}" style="margin: 15px, 15px;  font-size:30px ;"
 			action="activitydisplay?faces-redirect=true" />
-		<p:commandButton value="#{msgs.editButtonText}"
+		<p:commandButton value="#{msgs.editButtonText}" style="margin: 15px, 15px;  font-size:30px ;"
 			action="activityedit?faces-redirect=true" />
 	</h:form>
 </h:body>

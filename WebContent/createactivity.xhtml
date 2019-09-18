@@ -12,7 +12,8 @@
 </h:head>
 <h:body>
 	<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
-	<f:event type="preRenderView" listener="#{activityController.retrievePotentialProjects}" />
+	<f:event type="preRenderView"
+		listener="#{activityController.retrievePotentialProjects}" />
 	<script>
 		function displayElapsedTime(longEnteredTime) {
 			var now = new Date();
@@ -97,7 +98,8 @@
 						itemValue="#{potentialProject}" required="true" />
 				</p:selectOneMenu>
 				<p:outputLabel />
-				<f:facet name="footer">
+				<f:facet name="footer"
+					style="margin: 0 auto; font-size:40px ; text-align: center; width: 1000px;">
 					<p:commandButton style="margin: 20px;" id="cancel"
 						value="#{msgs['cancelButtonText']}" ajax="false" immediate="true"
 						action="activitydisplay?faces-redirect=true" />
@@ -106,6 +108,7 @@
 						action="#{activityController.createActivitiy}" />
 				</f:facet>
 			</p:panelGrid>
+
 		</h:form>
 	</p:panel>
 </h:body>

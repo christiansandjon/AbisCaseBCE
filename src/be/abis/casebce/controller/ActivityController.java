@@ -139,6 +139,7 @@ public class ActivityController implements Serializable {
 
 		this.currentActivity = new Activity();
 		this.currentActivity.setPerformer(this.getPerformer());
+		this.retrievePotentialProjects();
 		this.currentActivity.setProject(this.potentialProjects.get(0));
 		return "createactivity?faces-redirect=true";
 	}

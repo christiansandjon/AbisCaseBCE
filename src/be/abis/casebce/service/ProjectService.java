@@ -32,7 +32,8 @@ public class ProjectService {
 		} catch (WebApplicationException e) {
 			Response res = e.getResponse();
 			ApiError err = res.readEntity(ApiError.class);
-			throw new Exception(err.getTitle() + ": " + err.getDescription());
+			System.out.println(err.getDescription());
+			throw new Exception(err.getTitle());
 		}
 		return projects;
 	}

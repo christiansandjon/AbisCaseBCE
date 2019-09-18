@@ -3,6 +3,7 @@ package be.abis.casebce.controller;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.el.ValueExpression;
@@ -46,14 +47,18 @@ public class ActivityController implements Serializable {
 		try {
 			this.displayedActivities = this.activityService.getActivities(this.performer.getId());
 		} catch (Exception e) {
+			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+					FacesContext.getCurrentInstance().getViewRoot().getLocale());
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
 		}
 		try {
 			this.potentialProjects = this.projectService.getProjects();
 		} catch (Exception e) {
+			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+					FacesContext.getCurrentInstance().getViewRoot().getLocale());
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
 		}
 	}
 
@@ -96,8 +101,10 @@ public class ActivityController implements Serializable {
 		try {
 			activityService.addActivity(currentActivity);
 		} catch (Exception e) {
+			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+					FacesContext.getCurrentInstance().getViewRoot().getLocale());
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
 			return "createactivity";
 		}
 		return "activityinfo?faces-redirected=true";
@@ -110,8 +117,10 @@ public class ActivityController implements Serializable {
 		try {
 			this.activityService.updateActivity(this.currentActivity);
 		} catch (Exception e) {
+			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+					FacesContext.getCurrentInstance().getViewRoot().getLocale());
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
 			return "activityedit";
 		}
 		return "activityinfo?faces-redirected=true";
@@ -121,8 +130,10 @@ public class ActivityController implements Serializable {
 		try {
 			this.setCurrentActivity(activityService.getActivity(this.currentActivity.getActivityId()));
 		} catch (Exception e) {
+			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+					FacesContext.getCurrentInstance().getViewRoot().getLocale());
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
 			return "activityedit";
 		}
 		return "activityinfo?faces-redirected=true";

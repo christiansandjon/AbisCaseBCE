@@ -1,6 +1,7 @@
 package be.abis.casebce.controller;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
@@ -45,9 +46,10 @@ public class LoginController implements Serializable {
 		try {
 			this.worker = this.service.login(this.login);
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+					FacesContext.getCurrentInstance().getViewRoot().getLocale());
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Issue", e.getMessage()));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
 			return "login";
 		}
 		this.loginIsOk = true;

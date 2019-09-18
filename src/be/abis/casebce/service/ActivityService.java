@@ -36,7 +36,8 @@ public class ActivityService {
 			facesContext.addMessage(null, facesMessage);
 		} else if (Integer.toString(responsePost.getStatus()).startsWith("4")) {
 			ApiError err = responsePost.readEntity(ApiError.class);
-			throw new Exception(err.getTitle() + ": " + err.getDescription());
+			System.out.println(err.getDescription());
+			throw new Exception(err.getTitle());
 		}
 
 	}
@@ -50,7 +51,8 @@ public class ActivityService {
 		} catch (WebApplicationException e) {
 			Response res = e.getResponse();
 			ApiError err = res.readEntity(ApiError.class);
-			throw new Exception(err.getTitle() + ": " + err.getDescription());
+			System.out.println(err.getDescription());
+			throw new Exception(err.getTitle());
 		}
 		return activities;
 	}
@@ -63,7 +65,8 @@ public class ActivityService {
 		} catch (WebApplicationException e) {
 			Response res = e.getResponse();
 			ApiError err = res.readEntity(ApiError.class);
-			throw new Exception(err.getTitle() + ": " + err.getDescription());
+			System.out.println(err.getDescription());
+			throw new Exception(err.getTitle());
 		}
 		return activity;
 	}
@@ -73,7 +76,8 @@ public class ActivityService {
 		Response res = target.request().put(Entity.entity(activity, MediaType.APPLICATION_JSON));
 		if (Integer.toString(res.getStatus()).startsWith("4")) {
 			ApiError err = res.readEntity(ApiError.class);
-			throw new Exception(err.getTitle() + ": " + err.getDescription());
+			System.out.println(err.getDescription());
+			throw new Exception(err.getTitle());
 		}
 	}
 }

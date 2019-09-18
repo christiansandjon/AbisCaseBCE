@@ -1,6 +1,7 @@
 package be.abis.casebce.controller;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.el.ValueExpression;
@@ -39,8 +40,10 @@ public class WorkingDayController implements Serializable {
 			try {
 				this.currentWorkingDay = this.workingDayService.getCurrentWorkingDay(this.worker.getId());
 			} catch (Exception e) {
+				ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+						FacesContext.getCurrentInstance().getViewRoot().getLocale());
 				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
 			}
 		}
 	}
@@ -69,8 +72,10 @@ public class WorkingDayController implements Serializable {
 		try {
 			this.currentWorkingDay = this.workingDayService.startWorkingDay(this.currentWorkingDay);
 		} catch (Exception e) {
+			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+					FacesContext.getCurrentInstance().getViewRoot().getLocale());
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
 		}
 	}
 
@@ -78,8 +83,10 @@ public class WorkingDayController implements Serializable {
 		try {
 			this.currentWorkingDay = this.workingDayService.closeWorkingDay(this.currentWorkingDay);
 		} catch (Exception e) {
+			ResourceBundle bundle = ResourceBundle.getBundle("be.abis.casebce.properties.dictionary",
+					FacesContext.getCurrentInstance().getViewRoot().getLocale());
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getMessage()), ""));
 		}
 	}
 

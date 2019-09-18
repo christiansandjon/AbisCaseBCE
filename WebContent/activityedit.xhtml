@@ -30,30 +30,38 @@
 	<h:form>
 		<p:toolbar>
 			<f:facet name="left">
-				<p:commandButton type="submit" value="Activity" immediate="true"
+				<p:commandButton type="submit" value="#{msgs['buttonActivity']}" immediate="true"
 					icon="pi pi-folder-open" ajax="false"
 					action="#{activityController.displayActivityList}" />
 				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
 					<pe:timer timeout="80000"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
 						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
-					<p:commandButton value="Close Working Day" ajax="false"
+					<p:commandButton value="#{msgs['closeWD']}" ajax="false"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
 						action="#{workingDayController.closeWorkingDay}" />
-					<p:commandButton value="Start Working Day" ajax="false"
+					<p:commandButton value="#{msgs['startWD']}" ajax="false"
 						rendered="#{workingDayController.currentWorkingDay.start == null}"
 						action="#{workingDayController.startWorkingDay}" />
 				</h:panelGroup>
-				<p:commandButton type="submit" value="Logout" immediate="true"
+				<p:commandButton type="submit" value="#{msgs['buttonLogout']}" immediate="true"
 					icon="pi pi-folder-open" ajax="false"
 					action="#{loginController.logout}" />
 			</f:facet>
 		</p:toolbar>
 		<br />
 	</h:form>
-	<p:panel header="#{msgs.activityEditTitle}">
-		<h:form id="activityEdit">
+	
+	<p:messages globalOnly="true" showDetail="true" layout="table"
+		errorStyle="color:red" infoStyle="color:green" />
+	
+	<p:panel id="basic" header="#{msgs.activityEditTitle}"
+		style="margin-bottom:50px; font-size:30px ; text-align: center;">
+		
+		<h:form id="activityEdit" style="margin: auto auto; width:1200px;">
+		
 			<p:messages globalOnly="true" showDetail="true" />
+			
 			<p:outputLabel value="#{msgs.projectLabelText}" />
 			<p:selectOneMenu id="project"
 				value="#{activityController.currentActivity.project}"

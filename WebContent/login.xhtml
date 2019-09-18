@@ -18,6 +18,9 @@
 		<h:outputText value="#{msgs['welcome']} " />
 		<span style="color: #4d88ff;">ABIS</span>
 	</h1>
+	<p:messages globalOnly="true" showDetail="true" layout="table"
+		errorStyle="color:red" infoStyle="color:green" />
+	
 	<h:form id="loginForm" style="margin: 0 auto; width:1000px;">
 		<p:panel id="basic" header="#{msgs['loginTitleLabel']}"
 			style="margin-bottom:50px; font-size:30px ; text-align: center;">
@@ -31,13 +34,11 @@
 				<p:password id="pwd" value="#{loginController.login.password}"
 					required="true" requiredMessage="#{msgs['emptyField']}" />
 				<p:message for="pwd" style="color:red" />
-
 				<p:commandButton value="#{msgs['buttonLogin']}"
 					action="#{loginController.login}" ajax="false" />
 			</p:panelGrid>
 		</p:panel>
 	</h:form>
-	<p:messages globalOnly="true" showDetail="true" layout="table"
-		errorStyle="color:red" infoStyle="color:green" />
+
 </h:body>
 </html>

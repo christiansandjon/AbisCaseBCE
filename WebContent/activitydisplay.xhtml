@@ -32,30 +32,41 @@
 	<h:form>
 		<p:toolbar>
 			<f:facet name="left">
-				<p:commandButton style="font-size:20px" type="submit" value="#{msgs['buttonActivity']}" immediate="true"
+				<p:commandButton style="font-size:20px" type="submit"
+					value="#{msgs['buttonActivity']}" immediate="true"
 					icon="pi pi-folder-open" ajax="false"
 					action="#{activityController.displayActivityList}" />
 				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
 					<pe:timer style="font-size:20px" timeout="80000"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
 						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
-					<p:commandButton style="font-size:20px" value="Close Working Day" ajax="false"
+					<p:commandButton style="font-size:20px" value="Close Working Day"
+						ajax="false"
 						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
 						action="#{workingDayController.closeWorkingDay}" />
-					<p:commandButton style="font-size:20px" value="Start Working Day" ajax="false"
+					<p:commandButton style="font-size:20px" value="Start Working Day"
+						ajax="false"
 						rendered="#{workingDayController.currentWorkingDay.start == null}"
 						action="#{workingDayController.startWorkingDay}" />
 				</h:panelGroup>
-				<p:commandButton style="font-size:20px" type="submit" value="#{msgs['buttonLogout']}" immediate="true"
+				<p:commandButton style="font-size:20px" type="submit"
+					value="#{msgs['buttonLogout']}" immediate="true"
 					icon="pi pi-folder-open" ajax="false"
 					action="#{loginController.logout}" />
 			</f:facet>
 		</p:toolbar>
 		<br />
 
-		<h1 style="margin: 0, 0; font-family:arial,helvetica,'Times New Roman'; font-size:50px ;font-weight:bold; text-align: center;"><h:outputText value="#{msgs['activityTitleLabel']} " /></h1>
+		<h1
+			style="margin: 0, 0; font-family: arial, helvetica, 'Times New Roman'; font-size: 50px; font-weight: bold; text-align: center;">
+			<h:outputText value="#{msgs['activityTitleLabel']} " />
+		</h1>
+		
+		<p:messages globalOnly="true" showDetail="true" layout="table"
+		errorStyle="color:red" infoStyle="color:green" />
 
-		<p:commandButton style="margin-bottom : 3px; font-size:25px" value="#{msgs['buttonNew']}"
+		<p:commandButton style="margin-bottom : 3px; font-size:25px"
+			value="#{msgs['buttonNew']}"
 			action="#{activityController.generateNewActivityForm}" ajax="false">
 		</p:commandButton>
 		<p:dataView var="a" value="#{activityController.displayedActivities}">

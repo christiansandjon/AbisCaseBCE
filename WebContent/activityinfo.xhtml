@@ -62,34 +62,47 @@
 					<p:commandLink immediate="true"
 						action="#{utilityController.changeLanguage('en')}" value="EN"
 						ajax="false" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
 
-	<p:panel id="basic" header="#{msgs.activityInfoTitle}"
-		style="margin-bottom:50px; margin: 0 auto; font-size:40px ; text-align: center; width: 1000px;">
-	
-		<h:outputText value="#{activityController.currentActivity.project.name}" />
-		<br />
-		<h:outputText value= "#{activityController.currentActivity.project.client.name}" />
-		<br />	<br />
-		<h:outputText value= "#{activityController.currentActivity.project.description}" /> 
-		<br />	<br />
-		<h:outputText value="#{activityController.currentActivity.start}">
-			<f:converter converterId="dateConverter" />
-		</h:outputText>
-		<br />
-		<h:outputText value="#{activityController.currentActivity.start}">
-			<f:converter converterId="hourConverter" />
-		</h:outputText>
-		<h:outputText value="#{activityController.currentActivity.end}">
-			<f:converter converterId="hourConverter" />
-		</h:outputText>
-		<br />
-		<p:outputLabel value="#{activityController.currentActivity.description}" />
-	</p:panel>
-	<h:form style="margin: 0 auto; width:600px; font-size:40px; text-align: center;">
-		<p:commandButton value="#{msgs.returnButtonText}" style="margin: 15px, 15px;  font-size:30px ;"
-			action="activitydisplay?faces-redirect=true" />
-		<p:commandButton value="#{msgs.editButtonText}" style="margin: 15px, 15px;  font-size:30px ;"
-			action="activityedit?faces-redirect=true" />
-	</h:form>
+		<p:panel id="basic" header="#{msgs.activityInfoTitle}"
+			style="margin-bottom:50px; margin: 0 auto; font-size:40px ; text-align: center; width: 1000px;">
+
+			<h:outputText
+				value="#{activityController.currentActivity.project.name}" />
+			<br />
+			<h:outputText
+				value="#{activityController.currentActivity.project.client.name}" />
+			<br />
+			<br />
+			<h:outputText
+				value="#{activityController.currentActivity.project.description}" />
+			<br />
+			<br />
+			<h:outputText value="#{activityController.currentActivity.start}">
+				<f:converter converterId="dateConverter" />
+			</h:outputText>
+			<br />
+			<h:outputText value="#{activityController.currentActivity.start}">
+				<f:converter converterId="hourConverter" />
+			</h:outputText>
+			<h:outputText value="#{activityController.currentActivity.end}">
+				<f:converter converterId="hourConverter" />
+			</h:outputText>
+			<br />
+			<p:outputLabel
+				value="#{activityController.currentActivity.description}" />
+		</p:panel>
+		<h:form
+			style="margin: 0 auto; width:600px; font-size:40px; text-align: center;">
+			<p:commandButton value="#{msgs.returnButtonText}"
+				style="margin: 15px, 15px;  font-size:30px ;"
+				action="activitydisplay?faces-redirect=true" />
+			<p:commandButton value="#{msgs.editButtonText}"
+				style="margin: 15px, 15px;  font-size:30px ;"
+				action="activityedit?faces-redirect=true" />
+		</h:form>
+	</f:view>
 </h:body>
 </html>

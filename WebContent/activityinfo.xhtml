@@ -11,46 +11,57 @@
 	<title>#{msgs.activityInfoTitle}</title>
 </h:head>
 <h:body>
-	<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
-	<script>
-		function displayElapsedTime(longEnteredTime) {
-			var now = new Date();
-			var elapsedTime = now.getSeconds() + now.getMinutes() * 60
-					+ now.getHours() * 60 * 60 - longEnteredTime;
-			var numHours = Math.floor(elapsedTime / 3600);
-			var minutesAndSeconds = elapsedTime - numHours;
-			var minutes = Math.floor((minutesAndSeconds % (60 * 60)) / 60);
-			var seconds = Math.floor(minutesAndSeconds % 60);
-			var innerHtmlText = (('0' + (numHours)).slice(-2) + ":"
-					+ ('0' + (minutes)).slice(-2) + ":" + ('0' + (seconds))
-					.slice(-2));
-			return innerHtmlText;
-		}
-	</script>
-	<h:form>
+	<f:view locale="#{utilityController.lang}">
+
+		<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
+		<script>
+			function displayElapsedTime(longEnteredTime) {
+				var now = new Date();
+				var elapsedTime = now.getSeconds() + now.getMinutes() * 60
+						+ now.getHours() * 60 * 60 - longEnteredTime;
+				var numHours = Math.floor(elapsedTime / 3600);
+				var minutesAndSeconds = elapsedTime - numHours;
+				var minutes = Math.floor((minutesAndSeconds % (60 * 60)) / 60);
+				var seconds = Math.floor(minutesAndSeconds % 60);
+				var innerHtmlText = (('0' + (numHours)).slice(-2) + ":"
+						+ ('0' + (minutes)).slice(-2) + ":" + ('0' + (seconds))
+						.slice(-2));
+				return innerHtmlText;
+			}
+		</script>
+		<h:form>
 			<p:toolbar>
-			<f:facet name="left">
-				<p:commandButton type="submit" value="#{msgs['buttonActivity']}" immediate="true"
-					icon="pi pi-folder-open" ajax="false"
-					action="activitydisplay?faces-redirect=true" />
-				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
-					<pe:timer timeout="80000"
-						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
-						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
-					<p:commandButton value="#{msgs['closeWD']}" ajax="false"
-						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
-						action="#{workingDayController.closeWorkingDay}" />
-					<p:commandButton value="#{msgs['startWD']}" ajax="false"
-						rendered="#{workingDayController.currentWorkingDay.start == null}"
-						action="#{workingDayController.startWorkingDay}" />
-				</h:panelGroup>
-				<p:commandButton type="submit" value="#{msgs['buttonLogout']}" immediate="true"
-					icon="pi pi-folder-open" ajax="false"
-					action="#{loginController.logout}" />
-			</f:facet>
-		</p:toolbar>
-		<br />
-	</h:form>
+				<f:facet name="left">
+					<p:commandButton type="submit" value="#{msgs['buttonActivity']}"
+						immediate="true" icon="pi pi-folder-open" ajax="false"
+						action="activitydisplay?faces-redirect=true" />
+					<h:panelGroup rendered="#{workingDayController.isAvailable()}">
+						<pe:timer timeout="80000"
+							rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+							formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
+						<p:commandButton value="#{msgs['closeWD']}" ajax="false"
+							rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+							action="#{workingDayController.closeWorkingDay}" />
+						<p:commandButton value="#{msgs['startWD']}" ajax="false"
+							rendered="#{workingDayController.currentWorkingDay.start == null}"
+							action="#{workingDayController.startWorkingDay}" />
+					</h:panelGroup>
+					<p:commandButton type="submit" value="#{msgs['buttonLogout']}"
+						immediate="true" icon="pi pi-folder-open" ajax="false"
+						action="#{loginController.logout}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandLink immediate="true"
+						action="#{utilityController.changeLanguage('fr')}" value="FR"
+						ajax="false" />
+					<h:outputText value=" " escape="false" />
+					<p:commandLink immediate="true"
+						action="#{utilityController.changeLanguage('nl')}" value="NL"
+						ajax="false" />
+					<h:outputText value=" " escape="false" />
+					<p:commandLink immediate="true"
+						action="#{utilityController.changeLanguage('en')}" value="EN"
+						ajax="false" />
 
 	<p:panel id="basic" header="#{msgs.activityInfoTitle}"
 		style="margin-bottom:50px; margin: 0 auto; font-size:40px ; text-align: center; width: 1000px;">

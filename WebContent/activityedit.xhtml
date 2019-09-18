@@ -11,96 +11,114 @@
 	<title>#{msgs.activityEditTitle}</title>
 </h:head>
 <h:body>
-	<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
-	<f:event type="preRenderView" listener="#{activityController.retrievePotentialProjects}" />
-	<script>
-		function displayElapsedTime(longEnteredTime) {
-			var now = new Date();
-			var elapsedTime = now.getSeconds() + now.getMinutes() * 60
-					+ now.getHours() * 60 * 60 - longEnteredTime;
-			var numHours = Math.floor(elapsedTime / 3600);
-			var minutesAndSeconds = elapsedTime - numHours;
-			var minutes = Math.floor((minutesAndSeconds % (60 * 60)) / 60);
-			var seconds = Math.floor(minutesAndSeconds % 60);
-			var innerHtmlText = (('0' + (numHours)).slice(-2) + ":"
-					+ ('0' + (minutes)).slice(-2) + ":" + ('0' + (seconds))
-					.slice(-2));
-			return innerHtmlText;
-		}
-	</script>
-	<h:form>
-		<p:toolbar>
-			<f:facet name="left">
-				<p:commandButton type="submit" value="#{msgs['buttonActivity']}" immediate="true"
-					icon="pi pi-folder-open" ajax="false"
-					action="activitydisplay?faces-redirect=true" />
-				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
-					<pe:timer timeout="80000"
-						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
-						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
-					<p:commandButton value="#{msgs['closeWD']}" ajax="false"
-						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
-						action="#{workingDayController.closeWorkingDay}" />
-					<p:commandButton value="#{msgs['startWD']}" ajax="false"
-						rendered="#{workingDayController.currentWorkingDay.start == null}"
-						action="#{workingDayController.startWorkingDay}" />
-				</h:panelGroup>
-				<p:commandButton type="submit" value="#{msgs['buttonLogout']}" immediate="true"
-					icon="pi pi-folder-open" ajax="false"
-					action="#{loginController.logout}" />
-			</f:facet>
-		</p:toolbar>
-		<br />
-	</h:form>
-	
-	<p:messages globalOnly="true" showDetail="true" layout="table"
-		errorStyle="color:red" infoStyle="color:green" />
-	
-	<p:panel id="basic" header="#{msgs.activityEditTitle}"
-		style="margin-bottom:50px; font-size:30px ; text-align: center;">
-		
-		<h:form id="activityEdit" style="margin: auto auto; width:1200px;">
-		
-			<p:messages globalOnly="true" showDetail="true" />
-			
-			<p:outputLabel value="#{msgs.projectLabelText}" />
-			<p:selectOneMenu id="project"
-				value="#{activityController.currentActivity.project}"
-				converter="activityProjectConverter">
-				<f:selectItems value="#{activityController.potentialProjects}"
-					var="potentialProject" itemLabel="#{potentialProject.name}"
-					itemValue="#{potentialProject}" />
-			</p:selectOneMenu>
+	<f:view locale="#{utilityController.lang}">
+
+		<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
+		<f:event type="preRenderView"
+			listener="#{activityController.retrievePotentialProjects}" />
+		<script>
+			function displayElapsedTime(longEnteredTime) {
+				var now = new Date();
+				var elapsedTime = now.getSeconds() + now.getMinutes() * 60
+						+ now.getHours() * 60 * 60 - longEnteredTime;
+				var numHours = Math.floor(elapsedTime / 3600);
+				var minutesAndSeconds = elapsedTime - numHours;
+				var minutes = Math.floor((minutesAndSeconds % (60 * 60)) / 60);
+				var seconds = Math.floor(minutesAndSeconds % 60);
+				var innerHtmlText = (('0' + (numHours)).slice(-2) + ":"
+						+ ('0' + (minutes)).slice(-2) + ":" + ('0' + (seconds))
+						.slice(-2));
+				return innerHtmlText;
+			}
+		</script>
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton type="submit" value="#{msgs['buttonActivity']}"
+						immediate="true" icon="pi pi-folder-open" ajax="false"
+						action="activitydisplay?faces-redirect=true" />
+					<h:panelGroup rendered="#{workingDayController.isAvailable()}">
+						<pe:timer timeout="80000"
+							rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+							formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
+						<p:commandButton value="#{msgs['closeWD']}" ajax="false"
+							rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+							action="#{workingDayController.closeWorkingDay}" />
+						<p:commandButton value="#{msgs['startWD']}" ajax="false"
+							rendered="#{workingDayController.currentWorkingDay.start == null}"
+							action="#{workingDayController.startWorkingDay}" />
+					</h:panelGroup>
+					<p:commandButton type="submit" value="#{msgs['buttonLogout']}"
+						immediate="true" icon="pi pi-folder-open" ajax="false"
+						action="#{loginController.logout}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandLink immediate="true"
+						action="#{utilityController.changeLanguage('fr')}" value="FR"
+						ajax="false" />
+					<h:outputText value=" " escape="false" />
+					<p:commandLink immediate="true"
+						action="#{utilityController.changeLanguage('nl')}" value="NL"
+						ajax="false" />
+					<h:outputText value=" " escape="false" />
+					<p:commandLink immediate="true"
+						action="#{utilityController.changeLanguage('en')}" value="EN"
+						ajax="false" />
+
+				</f:facet>
+			</p:toolbar>
 			<br />
-			<p:outputLabel value="#{msgs.startTimeLabelText}" />
-			<p:datePicker id="start"
-				value="#{activityController.currentActivity.start}" showTime="true"
-				stepMinute="15" pattern="dd-MM-yyyy" hourFormat="24">
-				<f:converter converterId="dateTimeConverter" />
-			</p:datePicker>
-			<p:message for="start" />
-			<br />
-			<p:outputLabel value="#{msgs.endTimeLabelText}" />
-			<p:datePicker id="end"
-				value="#{activityController.currentActivity.end}" timeOnly="true"
-				stepMinute="15" pattern="kk:mm">
-				<f:converter converterId="hourConverter" />
-			</p:datePicker>
-			<p:message for="end" />
-			<br />
-			<p:outputLabel value="#{msgs.descriptionLabelText}" />
-			<br />
-			<p:inputTextarea id="description"
-				value="#{activityController.currentActivity.description}" rows="10"
-				cols="30" />
-			<p:message for="description" />
-			<br />
-			<br />
-			<p:commandButton value="#{msgs.validateButtonText}" ajax="false"
-				action="#{activityController.validateEdition}" />
-			<p:commandButton value="#{msgs.cancelButtonText}" ajax="false"
-				action="#{activityController.cancelEdition}" />
 		</h:form>
-	</p:panel>
+
+		<p:messages globalOnly="true" showDetail="true" layout="table"
+			errorStyle="color:red" infoStyle="color:green" />
+
+		<p:panel id="basic" header="#{msgs.activityEditTitle}"
+			style="margin-bottom:50px; font-size:30px ; text-align: center;">
+
+			<h:form id="activityEdit" style="margin: auto auto; width:1200px;">
+
+				<p:messages globalOnly="true" showDetail="true" />
+
+				<p:outputLabel value="#{msgs.projectLabelText}" />
+				<p:selectOneMenu id="project"
+					value="#{activityController.currentActivity.project}"
+					converter="activityProjectConverter">
+					<f:selectItems value="#{activityController.potentialProjects}"
+						var="potentialProject" itemLabel="#{potentialProject.name}"
+						itemValue="#{potentialProject}" />
+				</p:selectOneMenu>
+				<br />
+				<p:outputLabel value="#{msgs.startTimeLabelText}" />
+				<p:datePicker id="start"
+					value="#{activityController.currentActivity.start}" showTime="true"
+					pattern="dd-MM-yyyy" hourFormat="24">
+					<f:converter converterId="dateTimeConverter" />
+				</p:datePicker>
+				<p:message for="start" />
+				<br />
+				<p:outputLabel value="#{msgs.endTimeLabelText}" />
+				<p:datePicker id="end"
+					value="#{activityController.currentActivity.end}" timeOnly="true"
+					pattern="kk:mm">
+					<f:converter converterId="hourConverter" />
+				</p:datePicker>
+				<p:message for="end" />
+				<br />
+				<p:outputLabel value="#{msgs.descriptionLabelText}" />
+				<br />
+				<p:inputTextarea id="description"
+					value="#{activityController.currentActivity.description}" rows="10"
+					cols="30" />
+				<p:message for="description" />
+				<br />
+				<br />
+				<p:commandButton value="#{msgs.validateButtonText}" ajax="false"
+					action="#{activityController.validateEdition}" />
+				<p:commandButton value="#{msgs.cancelButtonText}" ajax="false"
+					action="#{activityController.cancelEdition}" />
+			</h:form>
+		</p:panel>
+	</f:view>
 </h:body>
 </html>

@@ -8,98 +8,115 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Activities</title>
 </h:head>
+
 <h:body>
-	<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
-	<f:event type="preRenderView" listener="#{activityController.displayActivityList}" />
-	<script>
-		function displayElapsedTime(longEnteredTime) {
-			var now = new Date();
-			var elapsedTime = now.getSeconds() + now.getMinutes() * 60
-					+ now.getHours() * 60 * 60 - longEnteredTime;
-			var numHours = Math.floor(elapsedTime / 3600);
-			var minutesAndSeconds = elapsedTime - numHours;
-			var minutes = Math.floor((minutesAndSeconds % (60 * 60)) / 60);
-			var seconds = Math.floor(minutesAndSeconds % 60);
-			var innerHtmlText = (('0' + (numHours)).slice(-2) + ":"
-					+ ('0' + (minutes)).slice(-2) + ":" + ('0' + (seconds))
-					.slice(-2));
-			return innerHtmlText;
-		}
-	</script>
-	<h:form>
-		<p:toolbar>
-			<f:facet name="left">
-				<p:commandButton style="font-size:20px" type="submit"
-					value="#{msgs['buttonActivity']}" immediate="true"
-					icon="pi pi-folder-open" ajax="false"
-					action="activitydisplay?faces-redirect=true" />
-				<h:panelGroup rendered="#{workingDayController.isAvailable()}">
-					<pe:timer style="font-size:20px" timeout="80000"
-						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
-						formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
-					<p:commandButton style="font-size:20px" value="Close Working Day"
-						ajax="false"
-						rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
-						action="#{workingDayController.closeWorkingDay}" />
-					<p:commandButton style="font-size:20px" value="Start Working Day"
-						ajax="false"
-						rendered="#{workingDayController.currentWorkingDay.start == null}"
-						action="#{workingDayController.startWorkingDay}" />
-				</h:panelGroup>
-				<p:commandButton style="font-size:20px" type="submit"
-					value="#{msgs['buttonLogout']}" immediate="true"
-					icon="pi pi-folder-open" ajax="false"
-					action="#{loginController.logout}" />
-			</f:facet>
-		</p:toolbar>
-		<br />
+	<f:view locale="#{utilityController.lang}">
+		<f:event type="preRenderView" listener="#{loginController.checkLogin}" />
+		<f:event type="preRenderView"
+			listener="#{activityController.displayActivityList}" />
+		<script>
+			function displayElapsedTime(longEnteredTime) {
+				var now = new Date();
+				var elapsedTime = now.getSeconds() + now.getMinutes() * 60
+						+ now.getHours() * 60 * 60 - longEnteredTime;
+				var numHours = Math.floor(elapsedTime / 3600);
+				var minutesAndSeconds = elapsedTime - numHours;
+				var minutes = Math.floor((minutesAndSeconds % (60 * 60)) / 60);
+				var seconds = Math.floor(minutesAndSeconds % 60);
+				var innerHtmlText = (('0' + (numHours)).slice(-2) + ":"
+						+ ('0' + (minutes)).slice(-2) + ":" + ('0' + (seconds))
+						.slice(-2));
+				return innerHtmlText;
+			}
+		</script>
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton style="font-size:20px" type="submit"
+						value="#{msgs['buttonActivity']}" immediate="true"
+						icon="pi pi-folder-open" ajax="false"
+						action="activitydisplay?faces-redirect=true" />
+					<h:panelGroup rendered="#{workingDayController.isAvailable()}">
+						<pe:timer style="font-size:20px" timeout="80000"
+							rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+							formatFunction="return displayElapsedTime('#{workingDayController.currentWorkingDay.calculateStartTimeInSeconds()}');" />
+						<p:commandButton style="font-size:20px" value="Close Working Day"
+							ajax="false"
+							rendered="#{workingDayController.currentWorkingDay.start != null and workingDayController.currentWorkingDay.end == null}"
+							action="#{workingDayController.closeWorkingDay}" />
+						<p:commandButton style="font-size:20px" value="Start Working Day"
+							ajax="false"
+							rendered="#{workingDayController.currentWorkingDay.start == null}"
+							action="#{workingDayController.startWorkingDay}" />
+					</h:panelGroup>
+					<p:commandButton style="font-size:20px" type="submit"
+						value="#{msgs['buttonLogout']}" immediate="true"
+						icon="pi pi-folder-open" ajax="false"
+						action="#{loginController.logout}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandLink immediate="true"
+						action="#{utilityController.changeLanguage('fr')}" value="FR"
+						ajax="false" />
+					<h:outputText value=" " escape="false" />
+					<p:commandLink immediate="true"
+						action="#{utilityController.changeLanguage('nl')}" value="NL"
+						ajax="false" />
+					<h:outputText value=" " escape="false" />
+					<p:commandLink immediate="true"
+						action="#{utilityController.changeLanguage('en')}" value="EN"
+						ajax="false" />
 
-		<h1
-			style="margin: 0, 0; font-family: arial, helvetica, 'Times New Roman'; font-size: 50px; font-weight: bold; text-align: center;">
-			<h:outputText value="#{msgs['activityTitleLabel']} " />
-		</h1>
-		
-		<p:messages globalOnly="true" showDetail="true" layout="table"
-		errorStyle="color:red" infoStyle="color:green" />
+				</f:facet>
+			</p:toolbar>
+			<br />
 
-		<p:commandButton style="margin-bottom : 3px; font-size:25px"
-			value="#{msgs['buttonNew']}"
-			action="#{activityController.generateNewActivityForm}" ajax="false">
-		</p:commandButton>
-		<p:dataView var="a" value="#{activityController.displayedActivities}">
-			<p:dataViewListItem>
-				<h:panelGrid columns="3" style="width:100%">
-					<p:outputPanel>
-						<h:panelGrid columns="3" cellpadding="5">
-							<h:outputText value="#{msgs['projectLabelText']}" />
-							<h:outputText value="#{a.project.name}" style="font-weight: bold" />
-							<h:outputText value="" />
+			<h1
+				style="margin: 0, 0; font-family: arial, helvetica, 'Times New Roman'; font-size: 50px; font-weight: bold; text-align: center;">
+				<h:outputText value="#{msgs['activityTitleLabel']} " />
+			</h1>
 
-							<h:outputText value="#{msgs['startTimeLabelText']}" />
-							<h:outputText converter="dateTimeConverter" value="#{a.start}"
-								style="font-weight: bold" />
-							<h:outputText value="" />
+			<p:messages globalOnly="true" showDetail="true" layout="table"
+				errorStyle="color:red" infoStyle="color:green" />
 
-							<h:outputText value="#{msgs['endTimeLabelText']}" />
-							<h:outputText converter="hourConverter" value="#{a.end}"
-								style="font-weight: bold" />
-							<h:outputText value="" />
-
-							<h:outputText value="#{msgs['descriptionLabelText']}" />
-							<h:outputText value="#{a.description}" style="font-weight: bold" />
-						</h:panelGrid>
-					</p:outputPanel>
-					<p:commandButton style="float: right" value="#{msgs['buttonInfo']}"
-						action="#{activityController.displayActivityInfo(a)}" ajax="false">
-					</p:commandButton>
-				</h:panelGrid>
-				<hr></hr>
-			</p:dataViewListItem>
-		</p:dataView>
-	</h:form>
+			<p:commandButton style="margin-bottom : 3px; font-size:25px"
+				value="#{msgs['buttonNew']}"
+				action="#{activityController.generateNewActivityForm}" ajax="false">
+			</p:commandButton>
+			<p:dataView var="a" value="#{activityController.displayedActivities}">
+				<p:dataViewListItem>
+					<h:panelGrid columns="3" style="width:100%">
+						<p:outputPanel>
+							<h:panelGrid columns="3" cellpadding="5">
+								<h:outputText value="#{msgs['projectLabelText']}" />
+								<h:outputText value="#{a.project.name}"
+									style="font-weight: bold" />
+								<h:outputText value="" />
+								<h:outputText value="#{msgs['startTimeLabelText']}" />
+								<h:outputText converter="dateTimeConverter" value="#{a.start}"
+									style="font-weight: bold" />
+								<h:outputText value="" />
+								<h:outputText value="#{msgs['endTimeLabelText']}" />
+								<h:outputText converter="hourConverter" value="#{a.end}"
+									style="font-weight: bold" />
+								<h:outputText value="" />
+								<h:outputText value="#{msgs['descriptionLabelText']}" />
+								<h:outputText value="#{a.description}" style="font-weight: bold" />
+							</h:panelGrid>
+						</p:outputPanel>
+						<p:commandButton style="float: right"
+							value="#{msgs['buttonInfo']}"
+							action="#{activityController.displayActivityInfo(a)}"
+							ajax="false">
+						</p:commandButton>
+					</h:panelGrid>
+					<hr></hr>
+				</p:dataViewListItem>
+			</p:dataView>
+		</h:form>
+	</f:view>
 </h:body>
 </html>
